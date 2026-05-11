@@ -1,0 +1,8 @@
+C:/CGA/CGA_Proyecto_Final/build/CMakeFiles/edit_cache.dir
+C:/CGA/CGA_Proyecto_Final/build/CMakeFiles/rebuild_cache.dir
+C:/CGA/CGA_Proyecto_Final/build/CGALib/CMakeFiles/CGALib.dir
+C:/CGA/CGA_Proyecto_Final/build/CGALib/CMakeFiles/edit_cache.dir
+C:/CGA/CGA_Proyecto_Final/build/CGALib/CMakeFiles/rebuild_cache.dir
+C:/CGA/CGA_Proyecto_Final/build/00-Introduccion/CMakeFiles/00-Introduccion.dir
+C:/CGA/CGA_Proyecto_Final/build/00-Introduccion/CMakeFiles/edit_cache.dir
+C:/CGA/CGA_Proyecto_Final/build/00-Introduccion/CMakeFiles/rebuild_cache.dir
