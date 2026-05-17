@@ -36,6 +36,7 @@
 
 #include "Headers/AnimationUtils.h"
 #include "Headers/Terrain.h"
+#include "Headers/Colisiones.h"
 
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
 
@@ -50,19 +51,24 @@ Shader shaderSkybox;
 //Shader con multiples luces
 Shader shaderMulLighting;
 //Shader para el terreno
-Shader shaderTerrain;
+//Shader shaderTerrain;
 
 std::shared_ptr<Camera> camera(new ThirdPersonCamera());
-float distanceFromTarget = 7.0f;
+float distanceFromPlayer = 6.0f;
 
 Sphere skyboxSphere(20, 20);
 Box boxCesped;
 Box boxWalls;
 Box boxHighway;
 Box boxLandingPad;
-Sphere esfera1(7, 7);		//Esfera creada como ejemplo
+//Sphere esfera1(7, 7);		//Esfera creada como ejemplo
+
+Box boxCollider;
+Sphere sphereCollider(10, 10);
+Cylinder cylinderCollider(10, 10, 1, 1, 1);	// rebanadas, tapas, radio1, radio2, altura
 
 // Models complex instances
+Model scene1;
 
 // Modelos animados
 // Cat
@@ -70,7 +76,7 @@ Model catModelAnimate;
 bool stopJump = false;
 
 // Terrain model instance
-Terrain terrain(-1,-1,200,32, "../Textures/HeightmapP3.png");
+//Terrain terrain(-1,-1,200,32, "../Textures/HeightmapP3.png");
 
 GLuint textureCespedID, textureWallID, textureWindowID, textureHighwayID, textureLandingPadID;		// Texturas
 GLuint skyboxTextureID;
@@ -84,12 +90,12 @@ GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
 GL_TEXTURE_CUBE_MAP_NEGATIVE_Z };
 
 std::string fileNames[6] = { 
-		"../Textures/mp_bloodvalley/blood-valley_ft.tga",
-		"../Textures/mp_bloodvalley/blood-valley_bk.tga",
-		"../Textures/mp_bloodvalley/blood-valley_up.tga",
-		"../Textures/mp_bloodvalley/blood-valley_dn.tga",
-		"../Textures/mp_bloodvalley/blood-valley_rt.tga",
-		"../Textures/mp_bloodvalley/blood-valley_lf.tga" };
+		"../Textures/clouds1/clouds1_north.bmp",
+		"../Textures/clouds1/clouds1_south.bmp",
+		"../Textures/clouds1/clouds1_up.bmp",
+		"../Textures/clouds1/clouds1_down.bmp",
+		"../Textures/clouds1/clouds1_west.bmp",
+		"../Textures/clouds1/clouds1_east.bmp" };
 
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
@@ -97,6 +103,8 @@ int lastMousePosY, offsetY = 0;
 
 // Model matrix definitions
 glm::mat4 modelMatrixCat = glm::mat4(1.0f);
+glm::mat4 modelMatrixCatPrev = glm::mat4(1.0f);  // Posición anterior del cat para resolver colisiones
+glm::mat4 modelMatrixScene1 = glm::mat4(1.0f);
 
 int animationCatIndex = 0;
 
@@ -109,20 +117,25 @@ std::ofstream myfile;
 std::string fileName = "";
 bool record = false;
 
-//Variables de salto
-bool isJump = false;	// Salto
-float GRAVITY = 4;	// Gravedad
-double tmv = 0;			// velocidad
-double startTime = 0;	// Tiempo de inicio
+// Almacenar estado de las variables de los modelos de colisiones
+std::map<std::string, std::tuple<AbstractModel::OBB, glm::mat4, glm::mat4>> collidersOBB;
+std::map<std::string, std::tuple<AbstractModel::SBB, glm::mat4, glm::mat4>> collidersSBB;
+
+// Variables de física de cat
+float catVelY   = 0.0f;		// Velocidad vertical de cat (+ = sube, - = cae)
+float GRAVITY   = 9.8f;		// Aceleración gravitacional
+float JUMP_FORCE = 6.0f;	// Impulso inicial del salto
+bool catOnGround = false;	// true cuando cat está apoyado sobre un collider
 
 double deltaTime;
 double currTime, lastTime;
 
-// Se definen todos las funciones.
+// Se definen todss las funciones.
 void reshapeCallback(GLFWwindow *Window, int widthRes, int heightRes);
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void mouseCallback(GLFWwindow *window, double xpos, double ypos);
 void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod);
+void mouseScrollCallback(GLFWwindow *window, double xscrollOffset, double yscrollOffset);
 void init(int width, int height, std::string strTitle, bool bFullScreen);
 void destroy();
 bool processInput(bool continueApplication = true);
@@ -164,6 +177,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	glfwSetKeyCallback(window, keyCallback);				//Eventos de teclado
 	glfwSetCursorPosCallback(window, mouseCallback);		//Eventos de movimiento de mouse
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);//Eventos de click
+	glfwSetScrollCallback(window, mouseScrollCallback); 	//Eventos de scroll
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	// Init glew
@@ -184,13 +198,19 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	shader.initialize("../Shaders/colorShader.vs", "../Shaders/colorShader.fs");
 	shaderSkybox.initialize("../Shaders/skyBox.vs", "../Shaders/skyBox.fs");
 	shaderMulLighting.initialize("../Shaders/iluminacion_textura_animation.vs", "../Shaders/multipleLights.fs");
-	shaderTerrain.initialize("../Shaders/terrain.vs", "../Shaders/terrain.fs");
-
+	//shaderTerrain.initialize("../Shaders/terrain.vs", "../Shaders/terrain.fs");
 
 	// Inicializacion de los objetos.
 	skyboxSphere.init();
 	skyboxSphere.setShader(&shaderSkybox);
 	skyboxSphere.setScale(glm::vec3(20.0f, 20.0f, 20.0f));
+
+	sphereCollider.init();
+	sphereCollider.setShader(&shader);		// Shader sin textura
+	boxCollider.init();
+	boxCollider.setShader(&shader);
+	cylinderCollider.init();
+	cylinderCollider.setShader(&shader);
 
 	boxCesped.init();
 	boxCesped.setShader(&shaderMulLighting);
@@ -204,22 +224,25 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	boxLandingPad.init();
 	boxLandingPad.setShader(&shaderMulLighting);
 
-	esfera1.init();								//Enviar información de la esfera a la tarjeta de video
+	/*esfera1.init();								//Enviar información de la esfera a la tarjeta de video
 	esfera1.setShader(&shaderMulLighting);		//Shader asociado
-
+*/
 	// Modelos
 	// Cat
 	catModelAnimate.loadModel("../models/cat/cat.fbx");
 	catModelAnimate.setShader(&shaderMulLighting);
 
-	// Terreno
-	terrain.init();
-	terrain.setShader(&shaderTerrain);
+	scene1.loadModel("../models/scenes/bed.obj");
+	scene1.setShader(&shaderMulLighting);
 
-	camera->setPosition(glm::vec3(0.0, 3.0, 20.0));
-	camera->setDistanceFromTarget(distanceFromTarget);
-	camera->setSensitivity(1.0);
-	
+	// Terreno
+	/*terrain.init();
+	terrain.setShader(&shaderTerrain);*/
+
+	//camera->setPosition(glm::vec3(0.0, 3.0, 20.0));
+	camera->setSensitivity(2.0);						// Establecer sensibilidad
+	camera->setDistanceFromTarget(distanceFromPlayer);	// Establecer distancia
+
 	// Carga de texturas para el skybox
 	Texture skyboxTexture = Texture("");
 	glGenTextures(1, &skyboxTextureID);
@@ -242,14 +265,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		skyboxTexture.freeImage();
 	}
 
-	// Definiendo la textura a utilizar
-	Texture textureCesped("../Textures/grassy2.png");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	textureCesped.loadImage();
-	// Creando la textura con id 1
-	glGenTextures(1, &textureCespedID);
-	// Enlazar esa textura a una tipo de textura de 2D.
-	glBindTexture(GL_TEXTURE_2D, textureCespedID);
+	Texture textureCesped("../Textures/grassy2.png");	// Definiendo la textura a utilizar
+	textureCesped.loadImage(); 							// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	glGenTextures(1, &textureCespedID); 				// Creando la textura con id 1
+	glBindTexture(GL_TEXTURE_2D, textureCespedID);		// Enlazar esa textura a una tipo de textura de 2D.
+
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
@@ -262,7 +282,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
 		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
 		// a los datos
-		std::cout << "Numero de canales :=> " << textureCesped.getChannels() << std::endl;
+		//std::cout << "Numero de canales :=> " << textureCesped.getChannels() << std::endl;
 		glTexImage2D(GL_TEXTURE_2D, 0, textureCesped.getChannels() == 3 ? GL_RGB : GL_RGBA, textureCesped.getWidth(), textureCesped.getHeight(), 0,
 		textureCesped.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureCesped.getData());
 		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
@@ -272,14 +292,12 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	textureCesped.freeImage();
 
-	// Definiendo la textura a utilizar
-	Texture textureWall("../Textures/whiteWall.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	textureWall.loadImage();
-	// Creando la textura con id 1
-	glGenTextures(1, &textureWallID);
-	// Enlazar esa textura a una tipo de textura de 2D.
-	glBindTexture(GL_TEXTURE_2D, textureWallID);
+	
+	Texture textureWall("../Textures/whiteWall.jpg");	// Definiendo la textura a utilizar
+	textureWall.loadImage(); 							// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	glGenTextures(1, &textureWallID); 					// Creando la textura con id 1
+	glBindTexture(GL_TEXTURE_2D, textureWallID); 		// Enlazar esa textura a una tipo de textura de 2D.
+
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -301,14 +319,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	textureWall.freeImage();
 
-	// Definiendo la textura a utilizar
-	Texture textureWindow("../Textures/ventana.png");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	textureWindow.loadImage();
-	// Creando la textura con id 1
-	glGenTextures(1, &textureWindowID);
-	// Enlazar esa textura a una tipo de textura de 2D.
-	glBindTexture(GL_TEXTURE_2D, textureWindowID);
+	Texture textureWindow("../Textures/ventana.png"); 	// Definiendo la textura a utilizar
+	textureWindow.loadImage(); 							// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	glGenTextures(1, &textureWindowID); 				// Creando la textura con id 1
+	glBindTexture(GL_TEXTURE_2D, textureWindowID); 		// Enlazar esa textura a una tipo de textura de 2D.
+
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -330,14 +345,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	textureWindow.freeImage();
 
-	// Definiendo la textura a utilizar
-	Texture textureHighway("../Textures/highway.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	textureHighway.loadImage();
-	// Creando la textura con id 1
-	glGenTextures(1, &textureHighwayID);
-	// Enlazar esa textura a una tipo de textura de 2D.
-	glBindTexture(GL_TEXTURE_2D, textureHighwayID);
+	Texture textureHighway("../Textures/highway.jpg"); 	// Definiendo la textura a utilizar
+	textureHighway.loadImage(); 						// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
+	glGenTextures(1, &textureHighwayID); 				// Creando la textura con id 1
+	glBindTexture(GL_TEXTURE_2D, textureHighwayID); 	// Enlazar esa textura a una tipo de textura de 2D.
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -391,7 +402,7 @@ void destroy() {
 	shader.destroy();
 	shaderMulLighting.destroy();
 	shaderSkybox.destroy();
-	shaderTerrain.destroy();
+	//shaderTerrain.destroy();
 
 	// Basic objects Delete
 	skyboxSphere.destroy();
@@ -399,13 +410,14 @@ void destroy() {
 	boxWalls.destroy();
 	boxHighway.destroy();
 	boxLandingPad.destroy();
-	esfera1.destroy();			// Liberar memoria de la tarjeta gráfica
+	//esfera1.destroy();			// Liberar memoria de la tarjeta gráfica
 
 	// Custom objects Delete
 	catModelAnimate.destroy();
+	scene1.destroy();
 
 	// Terrains objects Delete
-	terrain.destroy();
+	//terrain.destroy();
 
 	// Textures Delete
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -444,11 +456,6 @@ void mouseCallback(GLFWwindow *window, double xpos, double ypos) {
 	lastMousePosY = ypos;
 }
 
-void scrollCallback(GLFWwindow* window, double xoffset, double yoffset){
-	distanceFromTarget -= yoffset;
-	camera->setDistanceFromTarget(distanceFromTarget);
-}
-
 void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod) {
 	if (state == GLFW_PRESS) {
 		switch (button) {
@@ -466,6 +473,11 @@ void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod) {
 	}
 }
 
+void mouseScrollCallback(GLFWwindow *window, double xscrollOffset, double yscrollOffset){
+	distanceFromPlayer -= yscrollOffset;
+	camera->setDistanceFromTarget(distanceFromPlayer);
+}
+
 bool processInput(bool continueApplication) {
 	if (exitApp || glfwWindowShouldClose(window) != 0) {
 		return false;
@@ -475,27 +487,34 @@ bool processInput(bool continueApplication) {
 		camera->mouseMoveCamera(offsetX, 0.0, deltaTime);
 	if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 		camera->mouseMoveCamera(0.0, offsetY, deltaTime);
+	
+	int numerodeBotones;
+	const unsigned char * botones = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &numerodeBotones);
+	//std::cout << "Numero de botones: " << numerodeBotones << std::endl;
 
 	// Control por mando
 	if(glfwJoystickPresent(GLFW_JOYSTICK_1) == GLFW_TRUE){		// Detecta si hay un mando conectado
-		std::cout << "Está presente el joystick" << std::endl;
+		//std::cout << "Está presente el joystick" << std::endl;
 		int axesCount;
 		const float * axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCount);
-		std::cout << "El numero de axes es: " << axesCount << std::endl;		// Hay 6 ejes: ejes v y h de los joysticks y los gatillos
-		std::cout << "El eje x del joystick izquierdo: " << axes[0]<< std::endl;
-		std::cout << "El eje y del joystick izquierdo: " << axes[1]<< std::endl;
-		std::cout << "El eje x del joystick derecho: " << axes[2]<< std::endl;
-		std::cout << "El eje y del joystick derecho: " << axes[3]<< std::endl;
-		std::cout << "El gatillo del joystick izquierdo: " << axes[4]<< std::endl;
-		std::cout << "El gatillo del joystick derecho: " << axes[5]<< std::endl;
+		//std::cout << "El numero de axes es: " << axesCount << std::endl;		// Hay 6 ejes: ejes v y h de los joysticks y los gatillos
+		//std::cout << "El eje x del joystick izquierdo: " << axes[0]<< std::endl;
+		//std::cout << "El eje y del joystick izquierdo: " << axes[1]<< std::endl;
+		//std::cout << "El eje x del joystick derecho: " << axes[2]<< std::endl;
+		//std::cout << "El eje y del joystick derecho: " << axes[3]<< std::endl;
+		//std::cout << "El gatillo del joystick izquierdo: " << axes[4]<< std::endl;
+		//std::cout << "El gatillo del joystick derecho: " << axes[5]<< std::endl;
 		// Joystick izquierdo
-		if(fabs(axes[0]) > 0.2){
-			modelMatrixCat = glm::rotate(modelMatrixCat, /*0.02f*/ -axes[0] * 0.02f, glm::vec3(0, 1, 0));
+		if(fabs(axes[0]) > 0.2 && catOnGround){
+			modelMatrixCat = glm::rotate(modelMatrixCat, /*0.02f*/ -axes[0] * 0.04f, glm::vec3(0, 1, 0));
 			animationCatIndex=1;
 		}
 		if(fabs(axes[1]) > 0.2){
-			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0, 0, -axes[1] * 0.02f));
-			animationCatIndex=0;
+			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0, 0, -axes[1] * 0.04f));
+			animationCatIndex=1;
+			if(botones[2] == GLFW_PRESS){	// Correr con X
+			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.04f));
+		}
 		}
 		// Joystick derecho
 		if(fabs(axes[2]) > 0.2){
@@ -504,14 +523,10 @@ bool processInput(bool continueApplication) {
 		if(fabs(axes[3]) > 0.2){
 			camera->mouseMoveCamera(0, axes[3], deltaTime);
 		}
-		int numerodeBotones;
-		const unsigned char * botones = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &numerodeBotones);
-		std::cout << "Numero de botones: " << numerodeBotones << std::endl;
 		// Botones
-		if(botones[0] == GLFW_PRESS && !isJump){		// Saltar con botón A
-			startTime = currTime;
-			isJump = true;
-			tmv = 0;
+		if(botones[0] == GLFW_PRESS && catOnGround){		// Saltar con botón A
+			catVelY = JUMP_FORCE;	// Aplicar impulso hacia arriba
+			catOnGround = false;	// Deja el suelo al saltar
 		}
 	}
 
@@ -561,27 +576,31 @@ bool processInput(bool continueApplication) {
 		availableSave = true;
 
 	// Controles de cat
-	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
-		modelMatrixCat = glm::rotate(modelMatrixCat, 0.02f, glm::vec3(0, 1, 0));
+	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS && catOnGround){
+		modelMatrixCat = glm::rotate(modelMatrixCat, 0.05f, glm::vec3(0, 1, 0));
 		animationCatIndex = 1;
-	} else if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
-		modelMatrixCat = glm::rotate(modelMatrixCat, -0.02f, glm::vec3(0, 1, 0));
-		animationCatIndex = 1;
-	}
-	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS){
-		modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.02));
+	} else if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS && catOnGround){
+		modelMatrixCat = glm::rotate(modelMatrixCat, -0.05f, glm::vec3(0, 1, 0));
 		animationCatIndex = 1;
 	}
-	else if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
+	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+		modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.03));
+		animationCatIndex = 1;
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS){	// Shift izquierdo para correr
+			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.02));
+			animationCatIndex = 1;
+		}
+	}
+	else if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
 		modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, -0.02));
 		animationCatIndex = 1;
 	}
 
-	bool keySpaceStatus = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;		// Detecta si se presiona la barra espaciadora
-	if(keySpaceStatus && !isJump){
-		isJump = true;
-		startTime = currTime;	// Comienza la cuenta del tiempo
-		tmv = 0;
+	// Saltar: solo se puede si cat está apoyado en un collider
+	bool keySpaceStatus = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
+	if(keySpaceStatus && catOnGround){
+		catVelY = JUMP_FORCE;	// Aplicar impulso hacia arriba
+		catOnGround = false;	// Deja el suelo al saltar
 	}
 
 	glfwPollEvents();
@@ -591,11 +610,11 @@ bool processInput(bool continueApplication) {
 void applicationLoop() {
 	bool psi = true;
 
-	glm::vec3 axis;
 	glm::vec3 target;
-	float angleTarget;
 
-	modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0f, 0.00, 0.0f));
+	modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0f, 0.0f, 0.0f));
+	modelMatrixScene1 = glm::translate(modelMatrixScene1, glm::vec3(0.0f, 0.0f, 0.0f));
+	modelMatrixScene1 = glm::rotate(modelMatrixScene1, 0.0f, glm::vec3(0, 1, 0));
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -608,7 +627,13 @@ void applicationLoop() {
 		lastTime = currTime;
 		TimeManager::Instance().CalculateFrameRate(true);
 		deltaTime = TimeManager::Instance().DeltaTime;
+
+		// Guardar posición anterior antes de procesar el input
+		modelMatrixCatPrev = modelMatrixCat;
+
 		psi = processInput(true);		//Detectar eventos
+
+		std::map<std::string, bool> collisionDetection;
 
 		// Variables donde se guardan las matrices de cada articulacion por 1 frame
 		
@@ -619,18 +644,10 @@ void applicationLoop() {
 				(float) screenWidth / (float) screenHeight, 0.01f, 100.0f);
 
 		if(modelSelected == 0){
-			axis = glm::axis(glm::quat_cast(modelMatrixCat));
-			angleTarget = glm::angle(glm::quat_cast(modelMatrixCat));
-			target = modelMatrixCat[3];
+			target = glm::vec3(modelMatrixCat[3]) + glm::vec3(0.0f, 1.5f, 0.0f);
 		}
 
-		if(std::isnan(angleTarget))
-			angleTarget = 0.0;
-		if(axis.y < 0)
-			angleTarget = -angleTarget;
-		
 		camera->setCameraTarget(target);
-		camera->setAngleTarget(angleTarget);
 		camera->updateCamera();
 		glm::mat4 view = camera->getViewMatrix();
 
@@ -639,18 +656,15 @@ void applicationLoop() {
 		shader.setMatrix4("view", 1, false, glm::value_ptr(view));
 
 		// Settea la matriz de vista y projection al shader con skybox
-		shaderSkybox.setMatrix4("projection", 1, false,
-				glm::value_ptr(projection));
-		shaderSkybox.setMatrix4("view", 1, false,
-				glm::value_ptr(glm::mat4(glm::mat3(view))));
-		// Settea la matriz de vista y projection al shader con multiples luces
-		shaderMulLighting.setMatrix4("projection", 1, false,
-				glm::value_ptr(projection));
-		shaderMulLighting.setMatrix4("view", 1, false,
-				glm::value_ptr(view));
+		shaderSkybox.setMatrix4("projection", 1, false, glm::value_ptr(projection));
+		shaderSkybox.setMatrix4("view", 1, false, glm::value_ptr(glm::mat4(glm::mat3(view))));
 
-		shaderTerrain.setMatrix4("projection", 1, false, glm::value_ptr(projection));
-		shaderTerrain.setMatrix4("view", 1, false, glm::value_ptr(view));
+		// Settea la matriz de vista y projection al shader con multiples luces
+		shaderMulLighting.setMatrix4("projection", 1, false, glm::value_ptr(projection));
+		shaderMulLighting.setMatrix4("view", 1, false, glm::value_ptr(view));
+
+		/*shaderTerrain.setMatrix4("projection", 1, false, glm::value_ptr(projection));
+		shaderTerrain.setMatrix4("view", 1, false, glm::value_ptr(view));*/
 
 		/*******************************************
 		 * Propiedades Luz direccional
@@ -661,40 +675,40 @@ void applicationLoop() {
 		shaderMulLighting.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));
 		shaderMulLighting.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-1.0, 0.0, 0.0)));
 
-		shaderTerrain.setVectorFloat3("viewPos", glm::value_ptr(camera->getPosition()));
+		/*shaderTerrain.setVectorFloat3("viewPos", glm::value_ptr(camera->getPosition()));
 		shaderTerrain.setVectorFloat3("directionalLight.light.ambient", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
 		shaderTerrain.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.7, 0.7, 0.7)));
 		shaderTerrain.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));
-		shaderTerrain.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-1.0, 0.0, 0.0)));
+		shaderTerrain.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-1.0, 0.0, 0.0)));*/
 
 		/*******************************************
 		 * Propiedades SpotLights
 		 *******************************************/
 		shaderMulLighting.setInt("spotLightCount", 0);
-		shaderTerrain.setInt("spotLightCount", 0);
+		//shaderTerrain.setInt("spotLightCount", 0);
 
 		/*******************************************
 		 * Propiedades PointLights
 		 *******************************************/
 		shaderMulLighting.setInt("pointLightCount", 0);
-		shaderTerrain.setInt("pointLightCount", 0);
+		//shaderTerrain.setInt("pointLightCount", 0);
 
 		/*******************************************
 		 * Terreno
 		 *******************************************/
-		glActiveTexture(GL_TEXTURE0);
+		/*glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureCespedID);
 		shaderTerrain.setInt("backgroundTexture", 0);
 		shaderTerrain.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(40, 40)));
 		terrain.setPosition(glm::vec3(100, 0, 100));
 		terrain.render();
 		shaderTerrain.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0, 0)));
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0);*/
 
 		/*******************************************
 		 * Cesped
 		 *******************************************/
-		/*glm::mat4 modelCesped = glm::mat4(1.0);
+		glm::mat4 modelCesped = glm::mat4(1.0);
 		modelCesped = glm::translate(modelCesped, glm::vec3(0.0, 0.0, 0.0));
 		modelCesped = glm::scale(modelCesped, glm::vec3(200.0, 0.001, 200.0));
 		// Se activa la textura del agua
@@ -703,7 +717,7 @@ void applicationLoop() {
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(200, 200)));
 		boxCesped.render(modelCesped);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0, 0)));
-		glBindTexture(GL_TEXTURE_2D, 0);*/
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		/*******************************************ww
 		 * Casa
@@ -786,7 +800,7 @@ void applicationLoop() {
 		/*******************************************
 		 * Esfera 1
 		*********************************************/
-		glActiveTexture(GL_TEXTURE0);							//Indicar si tiene textura
+		/*glActiveTexture(GL_TEXTURE0);							//Indicar si tiene textura
 		glBindTexture(GL_TEXTURE_2D, textureHighwayID);			//Textura para la esfera
 		shaderMulLighting.setInt("texture1", 0);				//Unidad de textura
 		esfera1.setScale(glm::vec3(3.0, 3.0, 3.0));				//Escalamiento de la esfera
@@ -816,7 +830,7 @@ void applicationLoop() {
 		esfera1.setPosition(glm::vec3(3.0f, 2.0f, 5.0f));
 		esfera1.enableWireMode();
 		esfera1.render();
-		esfera1.enableFillMode();
+		esfera1.enableFillMode();*/
 
 		/******************************************
 		 * Landing pad
@@ -835,26 +849,22 @@ void applicationLoop() {
 		/*******************************************
 		 * Custom objects obj
 		 *******************************************/
+		glm::mat4 modelMatrixScene1Body = glm::mat4(modelMatrixScene1);
+		//modelMatrixScene1[3].y = terrain.getHeightTerrain(modelMatrixScene1[3].x, modelMatrixScene1[3].z);
+		modelMatrixScene1Body = glm::translate(modelMatrixScene1Body, glm::vec3(0.0, 0.0, 0.0));
+		modelMatrixScene1Body = glm::scale(modelMatrixScene1Body, glm::vec3(0.02));
+		scene1.render(modelMatrixScene1Body);
 		
 		/*******************************************
 		* Objetos animados por huesos
 		*******************************************/
-		glm::vec3 ejey = glm::normalize(terrain.getNormalTerrain(modelMatrixCat[3][0], modelMatrixCat[3][2]));
-		glm::vec3 ejex = glm::vec3(modelMatrixCat[0]);
-		glm::vec3 ejez = glm::normalize(glm::cross(ejex, ejey));
-		modelMatrixCat[3].y = terrain.getHeightTerrain(modelMatrixCat[3].x, modelMatrixCat[3].z);
-		ejex = glm::normalize(glm::cross(ejey, ejez));
-		modelMatrixCat[0] = glm::vec4(ejex, 0.0);
-		modelMatrixCat[1] = glm::vec4(ejey, 0.0);
-		modelMatrixCat[2] = glm::vec4(ejez, 0.0);
-		if(!stopJump){
-			modelMatrixCat[3][1] = -GRAVITY * tmv * tmv + 4.0 * tmv + terrain.getHeightTerrain(modelMatrixCat[3][0], modelMatrixCat[3][2]);	// Completando la línea para calcular el tiro parabólico (salto)
-			tmv = currTime - startTime;
-			if(modelMatrixCat[3][1] < terrain.getHeightTerrain(modelMatrixCat[3].x, modelMatrixCat[3].z)){	// Detectar que está en el suelo (dejar de caer)
-				modelMatrixCat[3].y = terrain.getHeightTerrain(modelMatrixCat[3].x, modelMatrixCat[3].z);
-				isJump = false;
-			}
-		}
+		// Gravedad continua: siempre se acumula velocidad hacia abajo
+		// catOnGround se resolverá en el bloque de colisiones al final del frame.
+		// Aplicamos la velocidad vertical al modelo (deltaTime en segundos)
+		catVelY -= GRAVITY * (float)deltaTime;
+		modelMatrixCat[3].y += catVelY * (float)deltaTime;
+
+		// Modelo real
 		glm::mat4 modelMatrixCatBody = glm::mat4(modelMatrixCat);
 		modelMatrixCatBody = glm::scale(modelMatrixCatBody, glm::vec3(0.0002));
 		catModelAnimate.setAnimationIndex(animationCatIndex);									// Ligar animación
@@ -877,9 +887,116 @@ void applicationLoop() {
 		glCullFace(oldCullFaceMode);
 		glDepthFunc(oldDepthFuncMode);
 
-		// Constantes de animaciones
-		
+		/*******************************************
+		 * Colliders
+		 *******************************************/
+		// Collider del suelo — se construye con los mismos valores del render
+		// El céspede está en (0,0,0) escalado a (200, 0.001, 200).
+		// El OBB unit del boxCesped tiene half-extents (0.5, 0.5, 0.5),
+		// así que los half-extents reales son escala * 0.5 para cada eje.
+		AbstractModel::OBB colliderFloor;
+		colliderFloor.u  = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);   // Sin rotación
+		colliderFloor.c  = glm::vec3(0.0f, 0.0f, 0.0f);          // Centro del box renderizado
+		colliderFloor.e  = glm::vec3(100.0f, 0.0005f, 100.0f);   // 200*0.5, 0.001*0.5, 200*0.5
+		glm::mat4 modelColliderFloor = glm::translate(glm::mat4(1.0f), colliderFloor.c);
+		addOrUpdateColliders(collidersOBB, "floor", colliderFloor, modelColliderFloor);
 
+		// Collider del gato
+		glm::mat4 modelColliderCat = glm::mat4(modelMatrixCat);
+		AbstractModel::OBB colliderCat;
+		colliderCat.u = glm::quat_cast(modelColliderCat);
+		modelColliderCat = glm::scale(modelColliderCat, glm::vec3(0.02));
+		modelColliderCat = glm::translate(modelColliderCat, catModelAnimate.getObb().c);	// Punto central de la caja
+		colliderCat.c = modelColliderCat[3];
+		colliderCat.e = catModelAnimate.getObb().e * glm::vec3(0.02);
+		addOrUpdateColliders(collidersOBB, "cat", colliderCat, modelMatrixCat);
+
+		glm::mat4 modelColliderScene1 = glm::mat4(modelMatrixScene1);			// Modelo de la nave
+		AbstractModel::OBB colliderScene1;										// Collider de la nave
+		colliderScene1.u = glm::quat_cast(modelColliderScene1);					// Mat4x4 a quaternion
+		modelColliderScene1 = glm::scale(modelColliderScene1, glm::vec3(0.02)); // Colocar el escalamiento que tenía el objeto
+		modelColliderScene1 = glm::translate(modelMatrixScene1Body, scene1.getObb().c); 	// Mover al centro de la caja
+		//modelColliderScene1 = glm::rotate(modelColliderScene1, 45.0f, glm::vec3(0, 1, 0));
+		colliderScene1.c = modelColliderScene1[3];
+		colliderScene1.e = scene1.getObb().e * glm::vec3(0.02);	// Escalamiento de 1
+		addOrUpdateColliders(collidersOBB, "scene1", colliderScene1, modelColliderScene1);
+
+		// Render de los colliders
+		for(auto it = collidersSBB.begin(); it != collidersSBB.end(); it++){
+			glm::mat4 matrixCollider = glm::translate(glm::mat4(1.0), std::get<0>(it->second).c);
+			matrixCollider = glm::scale(matrixCollider, glm::vec3(std::get<0>(it->second).ratio*2));
+			sphereCollider.setColor(glm::vec4(1, 1, 1, 1));
+			sphereCollider.enableWireMode();
+			sphereCollider.render(matrixCollider);
+		};
+		for(auto it = collidersOBB.begin(); it != collidersOBB.end(); it++){
+			glm::mat4 matrixCollider = glm::translate(glm::mat4(1.0), std::get<0>(it->second).c);
+			matrixCollider = matrixCollider * glm::mat4(std::get<0>(it->second).u);	// Rotación
+			matrixCollider = glm::scale(matrixCollider, std::get<0>(it->second).e * 2.0f);
+			boxCollider.setColor(glm::vec4(1));
+			boxCollider.enableWireMode();
+			boxCollider.render(matrixCollider);
+		};
+
+		// Pruebas de colisión
+		// catOnGround se resetea cada frame; el bloque de resolución lo activa
+		// si detecta que cat está apoyado encima de otro collider.
+		catOnGround = false;
+		for(auto it = collidersOBB.begin(); it != collidersOBB.end(); it++){
+			bool isCollition = false;
+			for(auto jt = collidersOBB.begin(); jt != collidersOBB.end(); jt++){
+				if(it != jt && testOBBOBB(std::get<0>(it->second), std::get<0>(jt->second))){
+					isCollition = true;
+				};
+			};
+			addOrUpdateCollisionDetection(collisionDetection, it->first, isCollition);
+
+			// Resolución de colisión para cat
+			if(it->first == "cat" && isCollition){
+				AbstractModel::OBB& catOBB = std::get<0>(it->second);
+				bool resolvedAsTop = false;
+
+				for(auto jt = collidersOBB.begin(); jt != collidersOBB.end(); jt++){
+					if(jt->first == "cat") continue;
+					if(!testOBBOBB(catOBB, std::get<0>(jt->second))) continue;
+
+					AbstractModel::OBB& otherOBB = std::get<0>(jt->second);
+
+					// Calcular penetración (overlap) en cada eje (aproximación AABB)
+					float overlapX = (catOBB.e.x + otherOBB.e.x) - glm::abs(catOBB.c.x - otherOBB.c.x);
+					float overlapY = (catOBB.e.y + otherOBB.e.y) - glm::abs(catOBB.c.y - otherOBB.c.y);
+					float overlapZ = (catOBB.e.z + otherOBB.e.z) - glm::abs(catOBB.c.z - otherOBB.c.z);
+
+					// Sin penetración real en algún eje → ignorar
+					if(overlapX <= 0.0f || overlapY <= 0.0f || overlapZ <= 0.0f) continue;
+
+					// El eje con MENOR penetración determina el tipo de colisión (SAT)
+					if(overlapY < overlapX && overlapY < overlapZ){
+						// --- Colisión VERTICAL (Y es el eje de menor penetración) ---
+						if(catOBB.c.y > otherOBB.c.y){
+							// Cat viene de arriba: empujar hacia arriba
+							modelMatrixCat[3].y += overlapY;
+							catVelY     = 0.0f;
+							catOnGround = true;
+							resolvedAsTop = true;
+						} else {
+							// Cat golpea desde abajo: empujar hacia abajo
+							modelMatrixCat[3].y -= overlapY;
+							if(catVelY > 0.0f) catVelY = 0.0f;
+						}
+					}
+					// Si X o Z es el eje menor → colisión LATERAL
+					// No se toca Y; se marca para revertir XZ abajo
+				}
+
+				// --- Colisión lateral: revertir solo X y Z, sin modificar Y ---
+				if(!resolvedAsTop){
+					modelMatrixCat[3].x = modelMatrixCatPrev[3].x;
+					modelMatrixCat[3].z = modelMatrixCatPrev[3].z;
+				}
+			}
+		};
+		
 		glfwSwapBuffers(window);
 	}
 }

@@ -451,4 +451,5 @@
  C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/metadata.h \
  C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/postprocess.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/AnimationUtils.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Terrain.h
+ C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Terrain.h \
+ C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Colisiones.h

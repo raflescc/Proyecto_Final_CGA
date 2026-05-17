@@ -7,6 +7,7 @@
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Bones.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Box.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Camera.h \
+  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Colisiones.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Cylinder.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FirstPersonCamera.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h \
@@ -484,6 +485,16 @@ C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/AnimationUtils.h:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Box.h:
 
+C:/msys64/ucrt64/include/ctype.h:
+
+C:/msys64/ucrt64/include/corecrt_wctype.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double1_precision.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/material.inl:
+
+C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Colisiones.h:
+
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x2_precision.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/config.h:
@@ -603,14 +614,6 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float3.hpp:
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/defs.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/light.h:
-
-C:/msys64/ucrt64/include/ctype.h:
-
-C:/msys64/ucrt64/include/corecrt_wctype.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double1_precision.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/material.inl:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.inl:
 
