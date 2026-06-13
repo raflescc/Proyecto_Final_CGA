@@ -1,0 +1,63 @@
+# Blender 4.5.3 LTS MTL File: 'edificios.blend'
+# www.blender.org
+
+newmtl Material.249
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.250
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.251
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.252
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.254
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.259
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png

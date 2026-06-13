@@ -17,6 +17,8 @@ Model::Model() {
 	this->aabb.maxs.y = -FLT_MAX;
 	this->aabb.maxs.z = -FLT_MAX;
 	this->animationIndex = 0;
+	this->animationStartTime = 0.0f;
+	this->animationLoop = true;
 }
 
 Model::~Model() {				// Libera la memoria
@@ -26,6 +28,13 @@ Model::~Model() {				// Libera la memoria
 	}
 	for (int i = 0; i < this->textureLoaded.size(); i++)
 		delete this->textureLoaded[i];
+}
+
+void Model::setAnimationIndex(int animationIndex) {
+	if (this->animationIndex != animationIndex) {
+		this->animationIndex = animationIndex;
+		this->animationStartTime = TimeManager::Instance().GetRunningTime();
+	}
 }
 
 void Model::render(glm::mat4 parentTrans) {
@@ -41,7 +50,17 @@ void Model::render(glm::mat4 parentTrans) {
 			if(this->meshes[i]->bones != nullptr){
 				shader_ptr->setInt("numBones", this->meshes[i]->bones->getNumBones());
 				std::vector<glm::mat4> transforms;
-				this->meshes[i]->bones->bonesTransform(runningTime, transforms, scene);
+
+				float timeInSeconds = runningTime - this->animationStartTime;
+				if (!this->animationLoop) {
+					float ticksPerSecond = (float)(scene->mAnimations[this->animationIndex]->mTicksPerSecond != 0 ? scene->mAnimations[this->animationIndex]->mTicksPerSecond : 25.0f);
+					float durationInSeconds = scene->mAnimations[this->animationIndex]->mDuration / ticksPerSecond;
+					if (timeInSeconds >= durationInSeconds) {
+						timeInSeconds = durationInSeconds - 0.001f;
+					}
+				}
+
+				this->meshes[i]->bones->bonesTransform(timeInSeconds, transforms, scene);
 				for (unsigned int j = 0; j < transforms.size(); j++) {
 					std::stringstream ss;
 					ss << "bones[" << j << "]";

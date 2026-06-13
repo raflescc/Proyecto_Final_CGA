@@ -1,0 +1,283 @@
+# Blender 4.5.3 LTS MTL File: 'edificios.blend'
+# www.blender.org
+
+newmtl Material.090
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.128
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.129
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.130
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.131
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.132
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.133
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.134
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.135
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.136
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.137
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.138
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.139
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.140
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.141
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.142
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.143
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.144
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.145
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.147
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.148
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.149
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.150
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.151
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.152
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.153
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.154
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png
+newmtl Material.155
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../../Textures/roof.png
+map_Kd ../../../../Textures/roof.png

@@ -53,9 +53,8 @@ public:
 	int getAnimationIndex(){
 		return animationIndex;
 	}
-	void setAnimationIndex(int animationIndex){
-		this->animationIndex = animationIndex;
-	}
+	void setAnimationIndex(int animationIndex);
+	void setAnimationLoop(bool loop) { this->animationLoop = loop; }
 private:
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh * processMesh(aiMesh* mesh, const aiScene* scene);
@@ -71,6 +70,8 @@ private:
 	const aiScene* scene;
 	Assimp::Importer importer;
 	int animationIndex;
+	float animationStartTime;
+	bool animationLoop;
 	bool gammaCorrection;
 };
 

@@ -6,5 +6,5 @@ CXX_DEFINES = -DBUILDING_DLL
 
 CXX_INCLUDES = @CMakeFiles/00-Introduccion.dir/includes_CXX.rsp
 
-CXX_FLAGS = -O3 -DNDEBUG
+CXX_FLAGS = -g
 
