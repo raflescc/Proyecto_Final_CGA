@@ -10,6 +10,7 @@
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Colisiones.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Cylinder.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FirstPersonCamera.h \
+  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FontTypeRendering.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Model.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Shader.h \
@@ -18,6 +19,21 @@
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/ThirdPersonCamera.h \
   C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/TimeManager.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftconfig.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftheader.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftoption.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftstdlib.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/integer-types.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/mac-support.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/public-macros.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/freetype.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrdef.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrors.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftimage.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftmoderr.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftsystem.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fttypes.h \
+  C:/CGA/CGA_Proyecto_Final/external/Freetype/include/ft2build.h \
   C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/poppack1.h \
   C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/pushpack1.h \
   C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Importer.hpp \
@@ -238,6 +254,7 @@
   C:/msys64/ucrt64/include/_mingw_off_t.h \
   C:/msys64/ucrt64/include/_mingw_secapi.h \
   C:/msys64/ucrt64/include/_mingw_stat64.h \
+  C:/msys64/ucrt64/include/_mingw_stdarg.h \
   C:/msys64/ucrt64/include/_timeval.h \
   C:/msys64/ucrt64/include/assert.h \
   C:/msys64/ucrt64/include/c++/15.2.0/algorithm \
@@ -438,7 +455,9 @@
   C:/msys64/ucrt64/include/sec_api/string_s.h \
   C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h \
   C:/msys64/ucrt64/include/sec_api/wchar_s.h \
+  C:/msys64/ucrt64/include/setjmp.h \
   C:/msys64/ucrt64/include/signal.h \
+  C:/msys64/ucrt64/include/stdarg.h \
   C:/msys64/ucrt64/include/stddef.h \
   C:/msys64/ucrt64/include/stdint.h \
   C:/msys64/ucrt64/include/stdio.h \
@@ -454,14 +473,11 @@
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/float.h \
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h \
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h \
+  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h \
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
   C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h
 
-
-C:/msys64/ucrt64/include/c++/15.2.0/bits/basic_ios.tcc:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/qualifier.hpp:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Bones.h:
 
@@ -473,11 +489,11 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_projection.inl:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/AbstractModel.h:
 
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_integer.inl:
-
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Camera.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/camera.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fttypes.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/exception_ptr.h:
 
@@ -507,11 +523,15 @@ C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/basic_file.h:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FirstPersonCamera.h:
 
+C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FontTypeRendering.h:
+
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.h:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Model.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftstdlib.h:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x3_precision.hpp:
 
@@ -525,11 +545,21 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint2.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/material.h:
 
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftsystem.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x4_precision.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x4.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/integer-types.h:
+
 C:/msys64/ucrt64/include/c++/15.2.0/bits/parse_numbers.h:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float4.hpp:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Sphere.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftimage.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/string_view:
 
@@ -537,19 +567,11 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat4x2.hpp:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Terrain.h:
 
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.h:
-
 C:/CGA/CGA_Proyecto_Final/external/glfw/include/GLFW/glfw3.h:
 
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.h:
+
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_fixes.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_trigonometric.inl:
-
-C:/msys64/ucrt64/include/pthread.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_vectorize.hpp:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/exception_defines.h:
 
@@ -567,6 +589,54 @@ C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++locale.h:
 
 C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/TimeManager.h:
 
+C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_iterator.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_relational.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec4.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftconfig.h:
+
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector2.inl:
+
+C:/msys64/ucrt64/include/vadefs.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec2.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftheader.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftoption.h:
+
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/mac-support.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/public-macros.h:
+
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/light.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x2_precision.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.inl:
+
+C:/msys64/ucrt64/include/c++/15.2.0/bits/streambuf.tcc:
+
+C:/msys64/ucrt64/include/_mingw.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/freetype.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrdef.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x4.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrors.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x4.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftmoderr.h:
+
+C:/CGA/CGA_Proyecto_Final/external/Freetype/include/ft2build.h:
+
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/quaternion.inl:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/poppack1.h:
@@ -580,6 +650,8 @@ C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/aabb.h:
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/pushpack1.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Importer.hpp:
+
+C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/texture.h:
 
@@ -601,25 +673,9 @@ C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/anim.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/color4.inl:
 
-C:/msys64/ucrt64/include/c++/15.2.0/type_traits:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int4_sized.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_geometric.inl:
-
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float3.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/defs.h:
-
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/light.h:
-
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.inl:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x2_precision.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.inl:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/locale_facets.h:
 
@@ -635,27 +691,37 @@ C:/msys64/ucrt64/include/c++/15.2.0/bits/shared_ptr.h:
 
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/types.h:
 
-C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector2.inl:
-
 C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector3.inl:
 
 C:/CGA/CGA_Proyecto_Final/external/glew/include/GL/glew.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_matrix.inl:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_vector_relational.hpp:
 
 C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/os_defines.h:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/common.hpp:
 
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_trigonometric.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_fixes.hpp:
+
+C:/msys64/ucrt64/include/pthread.h:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_vectorize.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_common.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_vector_relational.hpp:
+
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint3.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_common.inl:
 
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_common.hpp:
-
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_exponential.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_geometric.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_integer.inl:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_matrix.inl:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/align.h:
 
@@ -664,6 +730,16 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_packing.inl:
 C:/msys64/ucrt64/include/c++/15.2.0/cwchar:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_vector_relational.inl:
+
+C:/msys64/ucrt64/include/c++/15.2.0/bits/basic_ios.tcc:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/qualifier.hpp:
+
+C:/msys64/ucrt64/include/c++/15.2.0/type_traits:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int4_sized.hpp:
+
+C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/uniform_int_dist.h:
 
@@ -695,10 +771,6 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x3.inl:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x4.hpp:
 
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x4_precision.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x4.inl:
-
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x2.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x2.inl:
@@ -725,8 +797,6 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x3.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x3.inl:
 
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x4.inl:
-
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_quat.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_quat.inl:
@@ -736,10 +806,6 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec1.hpp:
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat3x4.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec1.inl:
-
-C:/msys64/ucrt64/include/vadefs.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec2.hpp:
 
 C:/msys64/ucrt64/include/corecrt_startup.h:
 
@@ -754,12 +820,6 @@ C:/msys64/ucrt64/include/c++/15.2.0/limits:
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_relational.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec4.hpp:
-
-C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_iterator.h:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_relational.inl:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec4.inl:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/exponential.hpp:
 
@@ -860,8 +920,6 @@ C:/msys64/ucrt64/include/c++/15.2.0/memory:
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x2.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x3.hpp:
-
-C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x4.hpp:
 
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x4_precision.hpp:
 
@@ -997,6 +1055,8 @@ C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int3_sized.hpp:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/atomic_base.h:
 
+C:/msys64/ucrt64/include/_mingw_stdarg.h:
+
 C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int4.hpp:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/cxxabi_forced.h:
@@ -1085,10 +1145,6 @@ C:/msys64/ucrt64/include/c++/15.2.0/backward/binders.h:
 
 C:/msys64/ucrt64/include/GL/glu.h:
 
-C:/msys64/ucrt64/include/c++/15.2.0/bits/streambuf.tcc:
-
-C:/msys64/ucrt64/include/_mingw.h:
-
 C:/msys64/ucrt64/include/_mingw_mac.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/tr1/beta_function.tcc:
@@ -1140,6 +1196,8 @@ C:/msys64/ucrt64/include/c++/15.2.0/bits/invoke.h:
 C:/msys64/ucrt64/include/c++/15.2.0/tr1/ell_integral.tcc:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/ios_base.h:
+
+C:/msys64/ucrt64/include/stdarg.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc:
 
@@ -1280,6 +1338,8 @@ C:/msys64/ucrt64/include/c++/15.2.0/new:
 C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/error_constants.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/pstl/execution_defs.h:
+
+C:/msys64/ucrt64/include/setjmp.h:
 
 C:/msys64/ucrt64/include/c++/15.2.0/pstl/glue_algorithm_defs.h:
 

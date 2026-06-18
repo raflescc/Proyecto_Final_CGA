@@ -11,6 +11,7 @@
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Colisiones.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Cylinder.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FirstPersonCamera.h
+ C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FontTypeRendering.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Model.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Shader.h
@@ -19,6 +20,21 @@
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/ThirdPersonCamera.h
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/TimeManager.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftconfig.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftheader.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftoption.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftstdlib.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/integer-types.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/mac-support.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/public-macros.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/freetype.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrdef.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrors.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftimage.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftmoderr.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftsystem.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fttypes.h
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/ft2build.h
  C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/poppack1.h
  C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/pushpack1.h
  C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Importer.hpp
@@ -239,6 +255,7 @@
  C:/msys64/ucrt64/include/_mingw_off_t.h
  C:/msys64/ucrt64/include/_mingw_secapi.h
  C:/msys64/ucrt64/include/_mingw_stat64.h
+ C:/msys64/ucrt64/include/_mingw_stdarg.h
  C:/msys64/ucrt64/include/_timeval.h
  C:/msys64/ucrt64/include/assert.h
  C:/msys64/ucrt64/include/c++/15.2.0/algorithm
@@ -439,7 +456,9 @@
  C:/msys64/ucrt64/include/sec_api/string_s.h
  C:/msys64/ucrt64/include/sec_api/sys/timeb_s.h
  C:/msys64/ucrt64/include/sec_api/wchar_s.h
+ C:/msys64/ucrt64/include/setjmp.h
  C:/msys64/ucrt64/include/signal.h
+ C:/msys64/ucrt64/include/stdarg.h
  C:/msys64/ucrt64/include/stddef.h
  C:/msys64/ucrt64/include/stdint.h
  C:/msys64/ucrt64/include/stdio.h
@@ -455,6 +474,7 @@
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/float.h
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/limits.h
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/mm_malloc.h
+ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stddef.h
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h

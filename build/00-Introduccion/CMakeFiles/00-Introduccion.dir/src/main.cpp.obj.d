@@ -408,6 +408,26 @@
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FirstPersonCamera.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Camera.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/ThirdPersonCamera.h \
+ C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FontTypeRendering.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/ft2build.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftheader.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/freetype.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftconfig.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftoption.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftstdlib.h \
+ C:/msys64/ucrt64/include/setjmp.h \
+ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
+ C:/msys64/ucrt64/include/stdarg.h \
+ C:/msys64/ucrt64/include/_mingw_stdarg.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/integer-types.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/public-macros.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/mac-support.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fttypes.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftsystem.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftimage.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrors.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftmoderr.h \
+ C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrdef.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Model.h \
  C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h \

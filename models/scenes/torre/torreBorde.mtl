@@ -1,0 +1,43 @@
+# Blender 4.5.3 LTS MTL File: 'edificios.blend'
+# www.blender.org
+
+newmtl Material.430
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../Textures/stone.png
+map_Kd ../../../Textures/stone.png
+newmtl Material.431
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../Textures/stone.png
+map_Kd ../../../Textures/stone.png
+newmtl Material.432
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../Textures/stone.png
+map_Kd ../../../Textures/stone.png
+newmtl Material.433
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Ka ../../../Textures/stone.png
+map_Kd ../../../Textures/stone.png

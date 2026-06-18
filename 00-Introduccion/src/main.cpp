@@ -23,6 +23,9 @@
 #include "Headers/FirstPersonCamera.h"
 #include "Headers/ThirdPersonCamera.h"
 
+// Font rendering include
+#include "Headers/FontTypeRendering.h"
+
 //GLM include
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -52,6 +55,8 @@ Shader shaderSkybox;
 Shader shaderMulLighting;
 //Shader para el terreno
 Shader shaderTerrain;
+// Shader para dibujar un objeto con solo textura
+Shader shaderTexture;
 
 std::shared_ptr<Camera> camera(new ThirdPersonCamera());
 float distanceFromPlayer = 6.0f;		// Distancia inicial de la cámara
@@ -61,6 +66,7 @@ Sphere skyboxSphere(20, 20);
 Box boxCollider;
 Sphere sphereCollider(10, 10);
 //Cylinder cylinderCollider(10, 10, 1, 1, 1);	// rebanadas, tapas, radio1, radio2, altura
+Box boxIntro;
 
 // Models complex instances
 // Casa 1
@@ -127,7 +133,7 @@ Model bordes;
 Model torrePared1;
 Model torrePared2;
 Model torrePared3;
-Model torreEntrada;
+Model casa1TorreEntrada;
 Model torrePuerta;
 // Casa 2
 Model casa2Entrada;
@@ -156,7 +162,82 @@ Model casa3VentanaA;
 Model casa3PuertaA;
 Model casa3PuertaB;
 Model casa3PuertaC;
-
+// Lago
+Model lagoPared1;
+Model lagoPared2;
+Model lagoTecho;
+// Ruina
+Model ruinaPilar1;
+Model ruinaPilar2;
+Model ruinaPilar3;
+Model ruinaPilar4;
+Model ruinaPlataforma;
+// Iglesia
+Model iglesiaEntrada;
+Model iglesiaEntradaA;
+Model iglesiaEntradaB;
+Model iglesiaTechoA;
+Model iglesiaTechoB;
+Model iglesiaTechoC;
+Model iglesiaPared1A;
+Model iglesiaPared1B;
+Model iglesiaPared1C;
+Model iglesiaPared2;
+Model iglesiaPared3;
+Model iglesiaPared4;
+Model iglesiaPared5;
+Model iglesiaPared6;
+Model iglesiaPared7;
+Model iglesiaPared8;
+Model iglesiaPared9;
+Model iglesiaPared10;
+Model iglesiaPared11;
+Model iglesiaPared12;
+// Torre
+Model torre;
+std::vector<std::pair<glm::vec3, float>> torrePos = {
+	{glm::vec3(0.0, 0.0, -80.0), 0.0},
+	{glm::vec3(0.0, 0.0, -80.0), 60.0},
+	{glm::vec3(0.0, 0.0, -80.0), 120.0},
+};
+Model torreEntrada;
+Model torreViga;
+Model torreAnillos;
+Model torreTop;
+std::vector<std::pair<glm::vec3, float>> torreTopPos = {
+	{glm::vec3(0.0, 0.0, -80.0), 0.0},
+	{glm::vec3(0.0, 0.0, -80.0), 60.0},
+	{glm::vec3(0.0, 0.0, -80.0), 120.0},
+};
+Model torreVentanas;
+Model torreVentanasTecho;
+Model torreBorde;
+std::vector<std::pair<glm::vec3, float>> bordePos = {
+	{glm::vec3(3.2, 0.0, -85.5), 60.0},
+	{glm::vec3(3.2, 0.0, -74.5), 120.0},
+	{glm::vec3(6.4, 0.0, -80.0), 180.0},
+	{glm::vec3(-3.2, 0.0, -74.5), 240.0},
+	{glm::vec3(-3.2, 0.0, -85.5), 300.0},
+	{glm::vec3(-6.4, 0.0, -80.0), 0.0},
+};
+Model torrePlataforma;
+std::vector<std::pair<glm::vec3, float>> plat1Pos = {
+	{glm::vec3(0.0, 0.0, -80.0), 0.0},
+	{glm::vec3(-5.0, 5.0, -79.0), 0.0},
+	{glm::vec3(0.0, 10.0, -80.0), 0.0},
+	{glm::vec3(-11.0, 17.0, -85.0), 0.0},
+};
+std::vector<std::pair<glm::vec3, float>> plat2Pos = {
+	{glm::vec3(2.0, 11.0, -85.0), 0.0},
+	{glm::vec3(-10.0, 16.0, -80.0), 0.0},
+	{glm::vec3(-15.0, 28.0, -85.0), 0.0},
+};
+std::vector<float> plat1InitialY;
+std::vector<float> plat2InitialY;
+std::vector<bool> plat1MovingToB;
+std::vector<bool> plat2MovingToB;
+std::vector<float> plat1WaitTimers;
+std::vector<float> plat2WaitTimers;
 // Modelos animados
 // Cat
 Model catModelAnimate;
@@ -165,28 +246,65 @@ bool stopJump = false;
 // Objetos
 Model caja;
 std::vector<std::pair<glm::vec3, float>> boxPositions = {
-	{glm::vec3(32.7, 0, 34.3), 0.0},
-	{glm::vec3(32.7, 0, 32.5), 0.0},
+	{glm::vec3(32.7, 0.0, 34.3), 0.0},
+	{glm::vec3(32.7, 0.0, 32.5), 0.0},
 	{glm::vec3(32.7, 1.6, 32.9), 0.0},
-	{glm::vec3(20.0, 0, 32.8), 0.0},
+	{glm::vec3(20.0, 0.0, 32.8), 0.0},
+	{glm::vec3(-18.4, 0.0, -5.0), 0.0},
+	{glm::vec3(-12.75, 3.2, -3.0), 0.0},
+	{glm::vec3(-16.5, 6.4, -1.1), 0.0},
+	{glm::vec3(-4.0, 0.0, -74.0), 30.0},
+	{glm::vec3(-16.2, 0.0, 19.6), 0.0},
+	{glm::vec3(-16.2, 1.6, 19.6), 0.0},
+	{glm::vec3(-16.2, 0.0, 21.2), 0.0},
+	{glm::vec3(-14.6, 0.0, 19.6), 0.0},
 };
 Model key;
 Model gem;
 std::vector<std::pair<glm::vec3, float>> gemPositions = {
-	{glm::vec3(0.0, 0, 5.0), 0.0},
-	{glm::vec3(0.0, 0, 10.0), 0.0},
-	{glm::vec3(0.0, 0, 15.0), 0.0},
-	{glm::vec3(0.0, 0, 20.0), 0.0},
+	{glm::vec3(-15.5, 9.5, 2.0), 0.0},
+	{glm::vec3(-85.0, 0.0, -85.0), 0.0},
+	{glm::vec3(27.7, 6.5, -0.8), 0.0},
+	{glm::vec3(29.7, 0.0, 14.5), 0.0},
+	{glm::vec3(-81.5, 11.0, 82.9), 0.0},
+	{glm::vec3(74.0, 1.5, -46.0), 0.0},
+	{glm::vec3(-12.2, 3.5, 22.3), 0.0},
+	{glm::vec3(80.3, 5.3, 74.4), 0.0},
 };
+// Estado de recolección de gemas
+std::vector<bool> gemCollected(8, false);
+int gemsCount = 0;
 Model bigTree;
+Model spruceLeaves;
+Model spruceLog;
+std::vector<std::pair<glm::vec3, float>> treesPositions = {
+	{glm::vec3(83.0, 0.0, 85.0), 30.0},
+	{glm::vec3(87.0, 0.0, 72.0), 60.0},
+	{glm::vec3(72.0, 0.0, 75.0), 90.0},
+	{glm::vec3(65.0, 0.0, 85.0), 120.0},
+	{glm::vec3(69.0, 0.0, 61.0), 150.0},
+	{glm::vec3(60.0, 0.0, 70.0), 180.0},
+	{glm::vec3(52.0, 0.0, 80.0), 210.0},
+	{glm::vec3(83.0, 0.0, 55.0), 240.0},
+	{glm::vec3(87.0, 0.0, 42.0), 300.0},
+	{glm::vec3(72.0, 0.0, 45.0), 330.0},
+	{glm::vec3(75.0, 0.0, 32.0), 360.0},
+	{glm::vec3(83.0, 0.0, 22.0), 0.0},
+};
 
 // Terrain model instance
 Terrain terrain(-1,-1,200,32, "../Textures/heightmap.png");
 
 // Texturas
-GLuint textureCespedID, textureWallID, textureWindowID, textureHighwayID, textureLandingPadID;
+GLuint textureCespedID;
 GLuint skyboxTextureID;
 GLuint textureRID,textureGID,textureBID,textureBlendMapID;
+
+GLuint textureInit1ID, textureInit2ID, textureActivaID, textureScreenID, textureOutroID;
+bool iniciaPartida = false, presionarOpcion = false;
+
+// Modelo para el render del texto
+FontTypeRendering::FontTypeRendering *modelText;
 
 GLenum types[6] = {
 GL_TEXTURE_CUBE_MAP_POSITIVE_X,
@@ -276,7 +394,7 @@ glm::mat4 modelMatrixBordes = glm::mat4(1.0f);
 glm::mat4 modelMatrixTorrePared1 = glm::mat4(1.0f);
 glm::mat4 modelMatrixTorrePared2 = glm::mat4(1.0f);
 glm::mat4 modelMatrixTorrePared3 = glm::mat4(1.0f);
-glm::mat4 modelMatrixTorreEntrada = glm::mat4(1.0f);
+glm::mat4 modelMatrixCasa1TorreEntrada = glm::mat4(1.0f);
 glm::mat4 modelMatrixTorrePuerta = glm::mat4(1.0f);
 // Casa 2
 glm::mat4 modelMatrixCasa2Entrada = glm::mat4(1.0f);
@@ -305,11 +423,54 @@ glm::mat4 modelMatrixCasa3VentanaA = glm::mat4(1.0f);
 glm::mat4 modelMatrixCasa3PuertaA = glm::mat4(1.0f);
 glm::mat4 modelMatrixCasa3PuertaB = glm::mat4(1.0f);
 glm::mat4 modelMatrixCasa3PuertaC = glm::mat4(1.0f);
+// Lago
+glm::mat4 modelMatrixLagoPared1 = glm::mat4(1.0f);
+glm::mat4 modelMatrixLagoPared2 = glm::mat4(1.0f);
+glm::mat4 modelMatrixLagoTecho = glm::mat4(1.0f);
+// Ruina
+glm::mat4 modelMatrixRuinaPilar1 = glm::mat4(1.0f);
+glm::mat4 modelMatrixRuinaPilar2 = glm::mat4(1.0f);
+glm::mat4 modelMatrixRuinaPilar3 = glm::mat4(1.0f);
+glm::mat4 modelMatrixRuinaPilar4 = glm::mat4(1.0f);
+glm::mat4 modelMatrixRuinaPlataforma = glm::mat4(1.0f);
+// Iglesia
+glm::mat4 modelMatrixIglesiaEntrada = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaEntradaA = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaEntradaB = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaTechoA = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaTechoB = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaTechoC = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared1A = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared1B = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared1C = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared2 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared3 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared4 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared5 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared6 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared7 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared8 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared9 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared10 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared11 = glm::mat4(1.0f);
+glm::mat4 modelMatrixIglesiaPared12 = glm::mat4(1.0f);
+// Torre
+glm::mat4 modelMatrixTorre = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreEntrada = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreViga = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreAnillos = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreVentanas = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreVentanasTecho = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreTop = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorreBorde = glm::mat4(1.0f);
+glm::mat4 modelMatrixTorrePlataforma = glm::mat4(1.0f);
 // Objetos
 glm::mat4 modelMatrixCaja = glm::mat4(1.0f);
 glm::mat4 modelMatrixCasa1Key = glm::mat4(1.0f);
 glm::mat4 modelMatrixGem = glm::mat4(1.0f);
 glm::mat4 modelMatrixBigTree = glm::mat4(1.0f);
+glm::mat4 modelMatrixSpruceLeaves = glm::mat4(1.0f);
+glm::mat4 modelMatrixSpruceLog = glm::mat4(1.0f);
 
 int animationCatIndex = 0;
 
@@ -332,10 +493,19 @@ float GRAVITY   = 9.8f;		// Aceleración gravitacional
 float JUMP_FORCE = 6.0f;	// Impulso inicial del salto
 bool catOnGround = false;	// true cuando cat está apoyado sobre un collider
 
+// Variables de la llave
+bool keyCollected = false;
+glm::vec3 keyPosition = glm::vec3(-81.5, 0.0, 82.9);	// posición fija de la llave
+
+// Descenso de gema índice 4 al recoger la llave
+bool gem4Descending = false;
+float gem4TargetY = 0.0f;		// altura destino (y=0 relativa, encima del terreno)
+float gem4DescentSpeed = 2.0f;	// unidades por segundo
+
 double deltaTime;
 double currTime, lastTime;
 
-// Se definen todss las funciones.
+// Se definen todas las funciones.
 void reshapeCallback(GLFWwindow *Window, int widthRes, int heightRes);
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void mouseCallback(GLFWwindow *window, double xpos, double ypos);
@@ -404,6 +574,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	shaderSkybox.initialize("../Shaders/skyBox.vs", "../Shaders/skyBox.fs");
 	shaderMulLighting.initialize("../Shaders/iluminacion_textura_animation.vs", "../Shaders/multipleLights.fs");
 	shaderTerrain.initialize("../Shaders/terrain.vs", "../Shaders/terrain.fs");
+	shaderTexture.initialize("../Shaders/texturizado.vs", "../Shaders/texturizado.fs");
 
 	// Inicializacion de los objetos.
 	skyboxSphere.init();
@@ -414,10 +585,12 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphereCollider.setShader(&shader);		// Shader sin textura
 	boxCollider.init();
 	boxCollider.setShader(&shader);
-	//cylinderCollider.init();
-	//cylinderCollider.setShader(&shader);
 
-	// Modelos
+	boxIntro.init();
+	boxIntro.setShader(&shaderTexture);
+	boxIntro.setScale(glm::vec3(2.0, 2.0, 1.0));
+
+	// Modelos animados
 	// Cat
 	catModelAnimate.loadModel("../models/cat/cat3.fbx");
 	catModelAnimate.setShader(&shaderMulLighting);
@@ -549,8 +722,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	torrePared2.setShader(&shaderMulLighting);
 	torrePared3.loadModel("../models/scenes/casa1/torre/pared3.obj");
 	torrePared3.setShader(&shaderMulLighting);
-	torreEntrada.loadModel("../models/scenes/casa1/torre/entrada.obj");
-	torreEntrada.setShader(&shaderMulLighting);
+	casa1TorreEntrada.loadModel("../models/scenes/casa1/torre/entrada.obj");
+	casa1TorreEntrada.setShader(&shaderMulLighting);
 	torrePuerta.loadModel("../models/scenes/casa1/torre/puertaA.obj");
 	torrePuerta.setShader(&shaderMulLighting);
 	casa2Entrada.loadModel("../models/scenes/casa2/casa2entrada.obj");
@@ -603,6 +776,80 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	casa3PuertaB.setShader(&shaderMulLighting);
 	casa3PuertaC.loadModel("../models/scenes/casa3/casa3puertaC.obj");
 	casa3PuertaC.setShader(&shaderMulLighting);
+	lagoPared1.loadModel("../models/scenes/lago/paredA.obj");;
+	lagoPared1.setShader(&shaderMulLighting);
+	lagoPared2.loadModel("../models/scenes/lago/paredB.obj");;
+	lagoPared2.setShader(&shaderMulLighting);
+	lagoTecho.loadModel("../models/scenes/lago/techo.obj");;
+	lagoTecho.setShader(&shaderMulLighting);
+	ruinaPilar1.loadModel("../models/scenes/ruina/pilar1.obj");;
+	ruinaPilar1.setShader(&shaderMulLighting);
+	ruinaPilar2.loadModel("../models/scenes/ruina/pilar2.obj");;
+	ruinaPilar2.setShader(&shaderMulLighting);
+	ruinaPilar3.loadModel("../models/scenes/ruina/pilar3.obj");;
+	ruinaPilar3.setShader(&shaderMulLighting);
+	ruinaPilar4.loadModel("../models/scenes/ruina/pilar4.obj");;
+	ruinaPilar4.setShader(&shaderMulLighting);
+	ruinaPlataforma.loadModel("../models/scenes/ruina/plataforma.obj");;
+	ruinaPlataforma.setShader(&shaderMulLighting);
+	iglesiaEntrada.loadModel("../models/scenes/iglesia/entrada.obj");;
+	iglesiaEntrada.setShader(&shaderMulLighting);
+	iglesiaEntradaA.loadModel("../models/scenes/iglesia/entradaA.obj");;
+	iglesiaEntradaA.setShader(&shaderMulLighting);
+	iglesiaEntradaB.loadModel("../models/scenes/iglesia/entradaB.obj");;
+	iglesiaEntradaB.setShader(&shaderMulLighting);
+	iglesiaTechoA.loadModel("../models/scenes/iglesia/techoA.obj");;
+	iglesiaTechoA.setShader(&shaderMulLighting);
+	iglesiaTechoB.loadModel("../models/scenes/iglesia/techoB.obj");;
+	iglesiaTechoB.setShader(&shaderMulLighting);
+	iglesiaTechoC.loadModel("../models/scenes/iglesia/techoC.obj");;
+	iglesiaTechoC.setShader(&shaderMulLighting);
+	iglesiaPared1A.loadModel("../models/scenes/iglesia/pared1A.obj");;
+	iglesiaPared1A.setShader(&shaderMulLighting);
+	iglesiaPared1B.loadModel("../models/scenes/iglesia/pared1B.obj");;
+	iglesiaPared1B.setShader(&shaderMulLighting);
+	iglesiaPared1C.loadModel("../models/scenes/iglesia/pared1C.obj");;
+	iglesiaPared1C.setShader(&shaderMulLighting);
+	iglesiaPared2.loadModel("../models/scenes/iglesia/pared2.obj");;
+	iglesiaPared2.setShader(&shaderMulLighting);
+	iglesiaPared3.loadModel("../models/scenes/iglesia/pared3.obj");;
+	iglesiaPared3.setShader(&shaderMulLighting);
+	iglesiaPared4.loadModel("../models/scenes/iglesia/pared4.obj");;
+	iglesiaPared4.setShader(&shaderMulLighting);
+	iglesiaPared5.loadModel("../models/scenes/iglesia/pared5.obj");;
+	iglesiaPared5.setShader(&shaderMulLighting);
+	iglesiaPared6.loadModel("../models/scenes/iglesia/pared6.obj");;
+	iglesiaPared6.setShader(&shaderMulLighting);
+	iglesiaPared7.loadModel("../models/scenes/iglesia/pared7.obj");;
+	iglesiaPared7.setShader(&shaderMulLighting);
+	iglesiaPared8.loadModel("../models/scenes/iglesia/pared8.obj");;
+	iglesiaPared8.setShader(&shaderMulLighting);
+	iglesiaPared9.loadModel("../models/scenes/iglesia/pared9.obj");;
+	iglesiaPared9.setShader(&shaderMulLighting);
+	iglesiaPared10.loadModel("../models/scenes/iglesia/pared10.obj");;
+	iglesiaPared10.setShader(&shaderMulLighting);
+	iglesiaPared11.loadModel("../models/scenes/iglesia/pared11.obj");;
+	iglesiaPared11.setShader(&shaderMulLighting);
+	iglesiaPared12.loadModel("../models/scenes/iglesia/pared12.obj");;
+	iglesiaPared12.setShader(&shaderMulLighting);
+	torre.loadModel("../models/scenes/torre/torre.obj");
+	torre.setShader(&shaderMulLighting);
+	torreEntrada.loadModel("../models/scenes/torre/torreEntrada.obj");
+	torreEntrada.setShader(&shaderMulLighting);
+	torreViga.loadModel("../models/scenes/torre/torreViga.obj");
+	torreViga.setShader(&shaderMulLighting);
+	torreVentanas.loadModel("../models/scenes/torre/torreVentana.obj");
+	torreVentanas.setShader(&shaderMulLighting);
+	torreVentanasTecho.loadModel("../models/scenes/torre/torreVentanaTecho.obj");
+	torreVentanasTecho.setShader(&shaderMulLighting);
+	torreAnillos.loadModel("../models/scenes/torre/torreAnillos.obj");
+	torreAnillos.setShader(&shaderMulLighting);
+	torreTop.loadModel("../models/scenes/torre/torreTop.obj");
+	torreTop.setShader(&shaderMulLighting);
+	torreBorde.loadModel("../models/scenes/torre/torreBorde.obj");
+	torreBorde.setShader(&shaderMulLighting);
+	torrePlataforma.loadModel("../models/scenes/torre/torrePlataforma.obj");
+	torrePlataforma.setShader(&shaderMulLighting);
 
 	caja.loadModel("../models/scenes/caja.obj");
 	caja.setShader(&shaderMulLighting);
@@ -610,12 +857,20 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	key.setShader(&shaderMulLighting);	
 	gem.loadModel("../models/scenes/gem.obj");
 	gem.setShader(&shaderMulLighting);
-	bigTree.loadModel("../models/scenes/tree.obj");
+	bigTree.loadModel("../models/nature/tree.obj");
 	bigTree.setShader(&shaderMulLighting);
+	spruceLeaves.loadModel("../models/nature/spruce_leaves.obj");
+	spruceLeaves.setShader(&shaderMulLighting);
+	spruceLog.loadModel("../models/nature/spruce_log.obj");
+	spruceLog.setShader(&shaderMulLighting);
 
 	// Terreno
 	terrain.init();
 	terrain.setShader(&shaderTerrain);
+
+	// Se inicializa el model de render text
+	modelText = new FontTypeRendering::FontTypeRendering(screenWidth, screenHeight);
+	modelText->Initialize();
 
 	//camera->setPosition(glm::vec3(0.0, 3.0, 20.0));
 	camera->setSensitivity(2.0);						// Establecer sensibilidad
@@ -663,7 +918,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definiendo la textura del nuevo shader
 	Texture textureR("../Textures/dirt.png");
 	textureR.loadImage(); // Cargar la textura
-	glGenTextures(1, &textureRID); // Creando el id de la textura del landingpad
+	glGenTextures(1, &textureRID); // Creando el id de la textura
 	glBindTexture(GL_TEXTURE_2D, textureRID); // Se enlaza la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
@@ -682,7 +937,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definiendo la textura del nuevo shader
 	Texture textureG("../Textures/flowers.png");
 	textureG.loadImage(); // Cargar la textura
-	glGenTextures(1, &textureGID); // Creando el id de la textura del landingpad
+	glGenTextures(1, &textureGID); // Creando el id de la textura
 	glBindTexture(GL_TEXTURE_2D, textureGID); // Se enlaza la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
@@ -701,7 +956,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definiendo la textura del nuevo shader
 	Texture textureB("../Textures/grava.png");
 	textureB.loadImage(); // Cargar la textura
-	glGenTextures(1, &textureBID); // Creando el id de la textura del landingpad
+	glGenTextures(1, &textureBID); // Creando el id de la textura
 	glBindTexture(GL_TEXTURE_2D, textureBID); // Se enlaza la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
@@ -720,7 +975,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definiendo la textura del nuevo shader
 	Texture textureBlendMap("../Textures/blendMap.png");
 	textureBlendMap.loadImage(); // Cargar la textura
-	glGenTextures(1, &textureBlendMapID); // Creando el id de la textura del landingpad
+	glGenTextures(1, &textureBlendMapID); // Creando el id de la textura
 	glBindTexture(GL_TEXTURE_2D, textureBlendMapID); // Se enlaza la textura
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
@@ -736,104 +991,93 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Fallo la carga de textura" << std::endl;
 	textureBlendMap.freeImage(); // Liberamos memoria
 
-	
-	Texture textureWall("../Textures/whiteWall.jpg");	// Definiendo la textura a utilizar
-	textureWall.loadImage(); 							// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	glGenTextures(1, &textureWallID); 					// Creando la textura con id 1
-	glBindTexture(GL_TEXTURE_2D, textureWallID); 		// Enlazar esa textura a una tipo de textura de 2D.
-
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
-	if (textureWall.getData()) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
-		glTexImage2D(GL_TEXTURE_2D, 0, textureWall.getChannels() == 3 ? GL_RGB : GL_RGBA, textureWall.getWidth(), textureWall.getHeight(), 0,
-		textureWall.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureWall.getData());
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
-		glGenerateMipmap(GL_TEXTURE_2D);
-	} else
-		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
-	textureWall.freeImage();
-
-	Texture textureWindow("../Textures/ventana.png"); 	// Definiendo la textura a utilizar
-	textureWindow.loadImage(); 							// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	glGenTextures(1, &textureWindowID); 				// Creando la textura con id 1
-	glBindTexture(GL_TEXTURE_2D, textureWindowID); 		// Enlazar esa textura a una tipo de textura de 2D.
-
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
-	if (textureWindow.getData()) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
-		glTexImage2D(GL_TEXTURE_2D, 0, textureWindow.getChannels() == 3 ? GL_RGB : GL_RGBA, textureWindow.getWidth(), textureWindow.getHeight(), 0,
-		textureWindow.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureWindow.getData());
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
-		glGenerateMipmap(GL_TEXTURE_2D);
-	} else
-		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
-	textureWindow.freeImage();
-
-	Texture textureHighway("../Textures/highway.jpg"); 	// Definiendo la textura a utilizar
-	textureHighway.loadImage(); 						// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	glGenTextures(1, &textureHighwayID); 				// Creando la textura con id 1
-	glBindTexture(GL_TEXTURE_2D, textureHighwayID); 	// Enlazar esa textura a una tipo de textura de 2D.
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
-	if (textureHighway.getData()) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
-		glTexImage2D(GL_TEXTURE_2D, 0, textureHighway.getChannels() == 3 ? GL_RGB : GL_RGBA, textureHighway.getWidth(), textureHighway.getHeight(), 0,
-		textureHighway.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureHighway.getData());
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
-		glGenerateMipmap(GL_TEXTURE_2D);
-	} else
-		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
-	textureHighway.freeImage();
-
-	// Definiendo la textura
-	Texture textureLandingPad("../Textures/landingPad.jpg");				// Seleccionar textura
-	textureLandingPad.loadImage();											// Cargar la textura
-	glGenTextures(1, &textureLandingPadID); 								// Creando el id de la textura del landingPad
-	glBindTexture(GL_TEXTURE_2D, textureLandingPadID);						// Se enlaza la textura
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);	// Wrapping en el eje u		// REPEAT: Repetir textura
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);	// Wrapping en el eje v		// CLAMP: Estirar borde hasta la orilla
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);		// Filtering de minimización	// Cuando la textura se aleja	// Linear:
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		// Filtering de maximimizacion	// Cuando la textura está cerca	   Suaviza la transición de los píxeles
-	if(textureLandingPad.getData()){
+	// Intro 1
+	Texture textureIntro1("../Textures/Intro1.png");
+	textureIntro1.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureInit1ID); // Creando el id de la textura
+	glBindTexture(GL_TEXTURE_2D, textureInit1ID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureIntro1.getData()){
 		// Transferir los datos de la imagen a la tarjeta
-		glTexImage2D(GL_TEXTURE_2D, 0, textureLandingPad.getChannels() == 3 ? GL_RGB : GL_RGBA, 
-			textureLandingPad.getWidth(), textureLandingPad.getHeight(), 0,
-			textureLandingPad.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, 
-			textureLandingPad.getData());
+		glTexImage2D(GL_TEXTURE_2D, 0, textureIntro1.getChannels() == 3 ? GL_RGB : GL_RGBA, textureIntro1.getWidth(), textureIntro1.getHeight(), 0,
+		textureIntro1.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureIntro1.getData());
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else 
 		std::cout << "Fallo la carga de textura" << std::endl;
-	textureLandingPad.freeImage(); // Liberamos memoria
+	textureIntro1.freeImage(); // Liberamos memoria
+
+	// Intro 2
+	Texture textureIntro2("../Textures/Intro2.png");
+	textureIntro2.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureInit2ID); // Creando el id de la textura
+	glBindTexture(GL_TEXTURE_2D, textureInit2ID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureIntro2.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		glTexImage2D(GL_TEXTURE_2D, 0, textureIntro2.getChannels() == 3 ? GL_RGB : GL_RGBA, textureIntro2.getWidth(), textureIntro2.getHeight(), 0,
+		textureIntro2.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureIntro2.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureIntro2.freeImage(); // Liberamos memoria
+
+	// Outro
+	Texture textureOutro("../Textures/Outro.png");
+	textureOutro.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureOutroID); // Creando el id de la textura
+	glBindTexture(GL_TEXTURE_2D, textureOutroID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureOutro.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		glTexImage2D(GL_TEXTURE_2D, 0, textureOutro.getChannels() == 3 ? GL_RGB : GL_RGBA, textureOutro.getWidth(), textureOutro.getHeight(), 0,
+		textureOutro.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureOutro.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureOutro.freeImage(); // Liberamos memoria
+
+	// Definiendo la textura
+	Texture textureScreen("../Textures/Screen.png");
+	textureScreen.loadImage(); // Cargar la textura
+	glGenTextures(1, &textureScreenID); // Creando el id de la textura
+	glBindTexture(GL_TEXTURE_2D, textureScreenID); // Se enlaza la textura
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Wrapping en el eje u
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); // Wrapping en el eje v
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Filtering de minimización
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Filtering de maximimizacion
+	if(textureScreen.getData()){
+		// Transferir los datos de la imagen a la tarjeta
+		glTexImage2D(GL_TEXTURE_2D, 0, textureScreen.getChannels() == 3 ? GL_RGB : GL_RGBA, textureScreen.getWidth(), textureScreen.getHeight(), 0,
+		textureScreen.getChannels() == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, textureScreen.getData());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else 
+		std::cout << "Fallo la carga de textura" << std::endl;
+	textureScreen.freeImage(); // Liberamos memoria
+
+	// Inicializar estado de movimiento de plataformas
+	for(int i = 0; i < (int)plat1Pos.size(); i++){
+		plat1InitialY.push_back(plat1Pos[i].first.y);
+		plat1MovingToB.push_back(true);   // Grupo 1 inicia moviéndose hacia arriba
+		plat1WaitTimers.push_back(0.0f);
+	}
+	for(int i = 0; i < (int)plat2Pos.size(); i++){
+		plat2InitialY.push_back(plat2Pos[i].first.y);
+		plat2MovingToB.push_back(false);  // Grupo 2 inicia moviéndose hacia abajo
+		plat2WaitTimers.push_back(0.0f);
+	}
 }
 
 void destroy() {
@@ -850,6 +1094,9 @@ void destroy() {
 
 	// Basic objects Delete
 	skyboxSphere.destroy();
+	boxCollider.destroy();
+	sphereCollider.destroy();
+	boxIntro.destroy();
 
 	// Custom objects Delete
 	catModelAnimate.destroy();
@@ -918,7 +1165,7 @@ void destroy() {
 	torrePared1.destroy();
 	torrePared2.destroy();
 	torrePared3.destroy();
-	torreEntrada.destroy();
+	casa1TorreEntrada.destroy();
 	torrePuerta.destroy();
 	// Casa 2
 	casa2Entrada.destroy();
@@ -947,12 +1194,54 @@ void destroy() {
 	casa3PuertaA.destroy();
 	casa3PuertaB.destroy();
 	casa3PuertaC.destroy();
-
+	// Lago
+	lagoPared1.destroy();
+	lagoPared2.destroy();
+	lagoTecho.destroy();
+	// Ruina
+	ruinaPilar1.destroy();
+	ruinaPilar2.destroy();
+	ruinaPilar3.destroy();
+	ruinaPilar4.destroy();
+	ruinaPlataforma.destroy();
+	// Iglesia
+	iglesiaEntrada.destroy();
+	iglesiaEntradaA.destroy();
+	iglesiaEntradaB.destroy();
+	iglesiaTechoA.destroy();
+	iglesiaTechoB.destroy();
+	iglesiaTechoC.destroy();
+	iglesiaPared1A.destroy();
+	iglesiaPared1B.destroy();
+	iglesiaPared1C.destroy();
+	iglesiaPared2.destroy();
+	iglesiaPared3.destroy();
+	iglesiaPared4.destroy();
+	iglesiaPared5.destroy();
+	iglesiaPared6.destroy();
+	iglesiaPared7.destroy();
+	iglesiaPared8.destroy();
+	iglesiaPared9.destroy();
+	iglesiaPared10.destroy();
+	iglesiaPared11.destroy();
+	iglesiaPared12.destroy();
+	// Torre
+	torre.destroy();
+	torreEntrada.destroy();
+	torreViga.destroy();
+	torreAnillos.destroy();
+	torreTop.destroy();
+	torreVentanas.destroy();
+	torreVentanasTecho.destroy();
+	torreBorde.destroy();
+	torrePlataforma.destroy();
 	// Objetos
 	caja.destroy();
 	key.destroy();
 	gem.destroy();
 	bigTree.destroy();
+	spruceLeaves.destroy();
+	spruceLog.destroy();
 
 	// Terrains objects Delete
 	terrain.destroy();
@@ -960,14 +1249,14 @@ void destroy() {
 	// Textures Delete
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDeleteTextures(1, &textureCespedID);
-	glDeleteTextures(1, &textureWallID);
-	glDeleteTextures(1, &textureWindowID);
-	glDeleteTextures(1, &textureHighwayID);
-	glDeleteTextures(1, &textureLandingPadID);
 	glDeleteTextures(1, &textureRID);
 	glDeleteTextures(1, &textureGID);
 	glDeleteTextures(1, &textureBID);
 	glDeleteTextures(1, &textureBlendMapID);
+	glDeleteTextures(1, &textureInit1ID);
+	glDeleteTextures(1, &textureInit2ID);
+	glDeleteTextures(1, &textureOutroID);
+	glDeleteTextures(1, &textureScreenID);
 
 	// Cube Maps Delete
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
@@ -1025,15 +1314,36 @@ bool processInput(bool continueApplication) {
 		return false;
 	}
 
-	if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		camera->mouseMoveCamera(offsetX, 0.0, deltaTime);
-	if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-		camera->mouseMoveCamera(0.0, offsetY, deltaTime);
+	if(!iniciaPartida){
+		bool presionarEnter = glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS;
+		if(textureActivaID == textureInit1ID && presionarEnter){
+			iniciaPartida = true;
+			textureActivaID = textureScreenID;
+		}else if((textureActivaID == textureInit2ID || textureActivaID == textureOutroID) && presionarEnter){
+			exitApp = true;
+		}
+		else if(!presionarOpcion && glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS){
+			presionarOpcion = true;
+			if(textureActivaID == textureInit1ID)
+				textureActivaID = textureInit2ID;
+			else if(textureActivaID == textureInit2ID)
+				textureActivaID = textureInit1ID;
+		}
+		else if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
+			presionarOpcion = false;
+	}
+
+	if(iniciaPartida){
+		if(glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS){
+			iniciaPartida = false;
+			textureActivaID = textureInit1ID;
+		}
+	}
 	
 	int numerodeBotones;
 	const unsigned char * botones = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &numerodeBotones);
 	//std::cout << "Numero de botones: " << numerodeBotones << std::endl;
-
+	
 	// Control por mando
 	if(glfwJoystickPresent(GLFW_JOYSTICK_1) == GLFW_TRUE){		// Detecta si hay un mando conectado
 		//std::cout << "Está presente el joystick" << std::endl;
@@ -1055,33 +1365,28 @@ bool processInput(bool continueApplication) {
 			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0, 0, -axes[1] * 0.04f));
 			animationCatIndex=1;
 			if(botones[2] == GLFW_PRESS){	// Correr con X
-			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.04f));
-		}
-		}
-		// Joystick derecho
-		if(fabs(axes[2]) > 0.2){
-			camera->mouseMoveCamera(axes[2], 0, deltaTime);
-		}
-		if(fabs(axes[3]) > 0.2){
-			camera->mouseMoveCamera(0, axes[3], deltaTime);
-		}
-		// Botones
-		if(botones[0] == GLFW_PRESS && catOnGround){		// Saltar con botón A
-			catVelY = JUMP_FORCE;	// Aplicar impulso hacia arriba
-			catOnGround = false;	// Deja el suelo al saltar
+			modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(0.0, 0.0, 0.1f));
 		}
 	}
+	// Joystick derecho
+	if(fabs(axes[2]) > 0.2){
+		camera->mouseMoveCamera(axes[2], 0, deltaTime);
+	}
+	if(fabs(axes[3]) > 0.2){
+		camera->mouseMoveCamera(0, axes[3], deltaTime);
+	}
+	// Botones
+	if(botones[0] == GLFW_PRESS && catOnGround){		// Saltar con botón A
+		catVelY = JUMP_FORCE;	// Aplicar impulso hacia arriba
+		catOnGround = false;	// Deja el suelo al saltar
+		}
+	}
+	
+	if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		camera->mouseMoveCamera(offsetX, 0.0, deltaTime);
+	if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+		camera->mouseMoveCamera(0.0, offsetY, deltaTime);
 
-	/*if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera->moveFrontCamera(true, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera->moveFrontCamera(false, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera->moveRightCamera(false, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera->moveRightCamera(true, deltaTime);
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		camera->mouseMoveCamera(offsetX, offsetY, deltaTime);*/
 	offsetX = 0;
 	offsetY = 0;
 
@@ -1096,26 +1401,6 @@ bool processInput(bool continueApplication) {
 	}
 	else if(glfwGetKey(window, GLFW_KEY_TAB) == GLFW_RELEASE)
 		enableCountSelected = true;
-
-	// Guardar key frames
-	if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS
-			&& glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
-		record = true;
-		if(myfile.is_open())
-			myfile.close();
-		myfile.open(fileName);
-	}
-	if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE
-			&& glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
-		record = false;
-		myfile.close();
-		
-	}
-	if(availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS){
-		saveFrame = true;
-		availableSave = false;
-	}if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_RELEASE)
-		availableSave = true;
 
 	// Controles de cat
 	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS && catOnGround){
@@ -1156,12 +1441,79 @@ bool processInput(bool continueApplication) {
 	return continueApplication;
 }
 
+// ─── Movimiento oscilante de plataformas ───────────────────────────────────
+//  Parámetros de movimiento
+const float PLAT_SPEED     = 2.0f;   // Unidades por segundo
+const float PLAT_AMPLITUDE = 5.5f;   // Distancia de desplazamiento desde posición base
+const float PLAT_WAIT_TIME = 2.0f;   // Segundos de espera antes de cambiar dirección
+
+void updatePlatforms(float dt) {
+	// ── Grupo 1: inicia subiendo ──────────────────────────────────────────
+	for(int i = 0; i < (int)plat1Pos.size(); i++){
+		if(plat1WaitTimers[i] > 0.0f){
+			plat1WaitTimers[i] -= dt;
+			if(plat1WaitTimers[i] < 0.0f) plat1WaitTimers[i] = 0.0f;
+			continue;
+		}
+		float& y       = plat1Pos[i].first.y;
+		float  baseY   = plat1InitialY[i];
+		float  topY    = baseY + PLAT_AMPLITUDE;
+		float  botY    = baseY;
+
+		if(plat1MovingToB[i]){          // Moviéndose hacia arriba (punto B)
+			y += PLAT_SPEED * dt;
+			if(y >= topY){
+				y = topY;
+				plat1MovingToB[i]   = false;
+				plat1WaitTimers[i]  = PLAT_WAIT_TIME;
+			}
+		} else {                         // Moviéndose hacia abajo (punto A)
+			y -= PLAT_SPEED * dt;
+			if(y <= botY){
+				y = botY;
+				plat1MovingToB[i]   = true;
+				plat1WaitTimers[i]  = PLAT_WAIT_TIME;
+			}
+		}
+	}
+
+	// ── Grupo 2: inicia bajando ───────────────────────────────────────────
+	for(int i = 0; i < (int)plat2Pos.size(); i++){
+		if(plat2WaitTimers[i] > 0.0f){
+			plat2WaitTimers[i] -= dt;
+			if(plat2WaitTimers[i] < 0.0f) plat2WaitTimers[i] = 0.0f;
+			continue;
+		}
+		float& y       = plat2Pos[i].first.y;
+		float  baseY   = plat2InitialY[i];
+		float  topY    = baseY;
+		float  botY    = baseY - PLAT_AMPLITUDE;
+
+		if(!plat2MovingToB[i]){         // Moviéndose hacia abajo (punto A)
+			y -= PLAT_SPEED * dt;
+			if(y <= botY){
+				y = botY;
+				plat2MovingToB[i]   = true;
+				plat2WaitTimers[i]  = PLAT_WAIT_TIME;
+			}
+		} else {                         // Moviéndose hacia arriba (punto B)
+			y += PLAT_SPEED * dt;
+			if(y >= topY){
+				y = topY;
+				plat2MovingToB[i]   = false;
+				plat2WaitTimers[i]  = PLAT_WAIT_TIME;
+			}
+		}
+	}
+}
+// ──────────────────────────────────────────────────────────────────────────
+
 void applicationLoop() {
 	bool psi = true;
 
 	glm::vec3 target;
 
-	modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(-70.0f, 0.0f, -70.0f)); 		// Posición inicial del gato
+	modelMatrixCat = glm::translate(modelMatrixCat, glm::vec3(7.0, 0.0, 0.0)); 		// Posición inicial del gato
 	modelMatrixCat = glm::rotate(modelMatrixCat, glm::radians(180.0f), glm::vec3(0, 1, 0));
 
 	modelMatrixCasa1Pared1a = glm::translate(modelMatrixCasa1Pared1a, glm::vec3(28.0f, 0.0f, 23.0f));
@@ -1227,7 +1579,7 @@ void applicationLoop() {
 	modelMatrixTorrePared1 = glm::translate(modelMatrixTorrePared1, glm::vec3(28.0f, 0.0f, 23.0f));
 	modelMatrixTorrePared2 = glm::translate(modelMatrixTorrePared2, glm::vec3(28.0f, 0.0f, 23.0f));
 	modelMatrixTorrePared3 = glm::translate(modelMatrixTorrePared3, glm::vec3(28.0f, 0.0f, 23.0f));
-	modelMatrixTorreEntrada = glm::translate(modelMatrixTorreEntrada, glm::vec3(28.0f, 0.0f, 23.0f));
+	modelMatrixCasa1TorreEntrada = glm::translate(modelMatrixCasa1TorreEntrada, glm::vec3(28.0f, 0.0f, 23.0f));
 	modelMatrixTorrePuerta = glm::translate(modelMatrixTorrePuerta, glm::vec3(28.0f, 0.0f, 23.0f));
 	// Casa 2
 	modelMatrixCasa2Entrada = glm::translate(modelMatrixCasa2Entrada, glm::vec3(19.0f, 0.0f, 18.0f));
@@ -1256,6 +1608,47 @@ void applicationLoop() {
 	modelMatrixCasa3PuertaA = glm::translate(modelMatrixCasa3PuertaA, glm::vec3(19.0f, 0.0f, 18.0f));
 	modelMatrixCasa3PuertaB = glm::translate(modelMatrixCasa3PuertaB, glm::vec3(19.0f, 0.0f, 18.0f));
 	modelMatrixCasa3PuertaC = glm::translate(modelMatrixCasa3PuertaC, glm::vec3(19.0f, 0.0f, 18.0f));
+	// Lago
+	modelMatrixLagoPared1 = glm::translate(modelMatrixLagoPared1, glm::vec3(74.0f, 0.0f, -46.0f));
+	modelMatrixLagoPared2 = glm::translate(modelMatrixLagoPared2, glm::vec3(74.0f, 0.0f, -46.0f));
+	modelMatrixLagoTecho = glm::translate(modelMatrixLagoTecho, glm::vec3(74.0f, 0.0f, -46.0f));
+	// Ruina
+	modelMatrixRuinaPilar1 = glm::translate(modelMatrixRuinaPilar1, glm::vec3(80.0f, 0.0f, 70.0f));
+	modelMatrixRuinaPilar2 = glm::translate(modelMatrixRuinaPilar2, glm::vec3(80.0f, 0.0f, 70.0f));
+	modelMatrixRuinaPilar3 = glm::translate(modelMatrixRuinaPilar3, glm::vec3(80.0f, 0.0f, 70.0f));
+	modelMatrixRuinaPilar4 = glm::translate(modelMatrixRuinaPilar4, glm::vec3(80.0f, 0.0f, 70.0f));
+	modelMatrixRuinaPlataforma = glm::translate(modelMatrixRuinaPlataforma, glm::vec3(80.0f, 0.0f, 70.0f));
+	// Iglesia
+	modelMatrixIglesiaEntrada = glm::translate(modelMatrixIglesiaEntrada, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaEntradaA = glm::translate(modelMatrixIglesiaEntradaA, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaEntradaB = glm::translate(modelMatrixIglesiaEntradaB, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaTechoA = glm::translate(modelMatrixIglesiaTechoA, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaTechoB = glm::translate(modelMatrixIglesiaTechoB, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaTechoC = glm::translate(modelMatrixIglesiaTechoC, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared1A = glm::translate(modelMatrixIglesiaPared1A, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared1B = glm::translate(modelMatrixIglesiaPared1B, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared1C = glm::translate(modelMatrixIglesiaPared1C, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared2 = glm::translate(modelMatrixIglesiaPared2, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared3 = glm::translate(modelMatrixIglesiaPared3, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared4 = glm::translate(modelMatrixIglesiaPared4, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared5 = glm::translate(modelMatrixIglesiaPared5, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared6 = glm::translate(modelMatrixIglesiaPared6, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared7 = glm::translate(modelMatrixIglesiaPared7, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared8 = glm::translate(modelMatrixIglesiaPared8, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared9 = glm::translate(modelMatrixIglesiaPared9, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared10 = glm::translate(modelMatrixIglesiaPared10, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared11 = glm::translate(modelMatrixIglesiaPared11, glm::vec3(-80.0f, 0.0f, 80.0f));
+	modelMatrixIglesiaPared12 = glm::translate(modelMatrixIglesiaPared12, glm::vec3(-80.0f, 0.0f, 80.0f));
+	// Torre
+	modelMatrixTorre = glm::translate(modelMatrixTorre, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreEntrada = glm::translate(modelMatrixTorreEntrada, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreViga = glm::translate(modelMatrixTorreViga, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreVentanas = glm::translate(modelMatrixTorreVentanas, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreVentanasTecho = glm::translate(modelMatrixTorreVentanasTecho, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreAnillos = glm::translate(modelMatrixTorreAnillos, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreTop = glm::translate(modelMatrixTorreTop, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorreBorde = glm::translate(modelMatrixTorreBorde, glm::vec3(0.0f, 0.0f, -80.0f));
+	modelMatrixTorrePlataforma = glm::translate(modelMatrixTorrePlataforma, glm::vec3(0.0f, 0.0f, 0.0f));
 	// Objetos
 	modelMatrixCaja = glm::translate(modelMatrixCaja, glm::vec3(27.1f, 1.55f, 53.6f));
 	modelMatrixCasa1Key = glm::translate(modelMatrixCasa1Key, glm::vec3(26.5f, 0.0f, 23.0f));
@@ -1263,8 +1656,12 @@ void applicationLoop() {
 	modelMatrixBigTree = glm::translate(modelMatrixBigTree, glm::vec3(-79.0f, 0.0f, -82.0f));
 	modelMatrixBigTree = glm::scale(modelMatrixBigTree, glm::vec3(1.5f));
 	modelMatrixBigTree = glm::rotate(modelMatrixBigTree, glm::radians(-130.0f), glm::vec3(0, 1, 0));
+	modelMatrixSpruceLeaves = glm::translate(modelMatrixSpruceLeaves, glm::vec3(0.0f, 0.0f, 0.0f));
+	modelMatrixSpruceLog = glm::translate(modelMatrixSpruceLog, glm::vec3(0.0f, 0.0f, 0.0f));
 
 	lastTime = TimeManager::Instance().GetTime();
+
+	textureActivaID = textureInit1ID;
 
 	while (psi) {
 		currTime = TimeManager::Instance().GetTime();
@@ -1275,6 +1672,7 @@ void applicationLoop() {
 		lastTime = currTime;
 		TimeManager::Instance().CalculateFrameRate(true);
 		deltaTime = TimeManager::Instance().DeltaTime;
+		updatePlatforms((float)deltaTime); // Actualizar posición de plataformas
 
 		// Guardar posición anterior antes de procesar el input
 		modelMatrixCatPrev = modelMatrixCat;
@@ -1322,27 +1720,27 @@ void applicationLoop() {
 		 * Propiedades Luz direccional
 		 *******************************************/
 		shaderMulLighting.setVectorFloat3("viewPos", glm::value_ptr(camera->getPosition()));
-		shaderMulLighting.setVectorFloat3("directionalLight.light.ambient", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
-		shaderMulLighting.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.7, 0.7, 0.7)));
-		shaderMulLighting.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));
-		shaderMulLighting.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-1.0, 0.0, 0.0)));
+		shaderMulLighting.setVectorFloat3("directionalLight.light.ambient", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
+		shaderMulLighting.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
+		shaderMulLighting.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
+		shaderMulLighting.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-0.5, -0.8, 0.5)));
 
 		shaderTerrain.setVectorFloat3("viewPos", glm::value_ptr(camera->getPosition()));
-		shaderTerrain.setVectorFloat3("directionalLight.light.ambient", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
-		shaderTerrain.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.7, 0.7, 0.7)));
-		shaderTerrain.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));
-		shaderTerrain.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-1.0, 0.0, 0.0)));
+		shaderTerrain.setVectorFloat3("directionalLight.light.ambient", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
+		shaderTerrain.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
+		shaderTerrain.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
+		shaderTerrain.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-0.5, -0.8, 0.5)));
 
 		/*******************************************
 		 * Propiedades SpotLights
 		 *******************************************/
-		shaderMulLighting.setInt("spotLightCount", 0);
+		//shaderMulLighting.setInt("spotLightCount", 0);
 		//shaderTerrain.setInt("spotLightCount", 0);
 
 		/*******************************************
 		 * Propiedades PointLights
 		 *******************************************/
-		shaderMulLighting.setInt("pointLightCount", 0);
+		//shaderMulLighting.setInt("pointLightCount", 0);
 		//shaderTerrain.setInt("pointLightCount", 0);
 
 		/*******************************************
@@ -1379,6 +1777,18 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, 0);
 		glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, 0);
 		glActiveTexture(GL_TEXTURE0);
+
+		/************Render de imagen de frente**************/
+		if(!iniciaPartida){
+			shaderTexture.setMatrix4("projection", 1, false, glm::value_ptr(glm::mat4(1.0)));
+			shaderTexture.setMatrix4("view", 1, false, glm::value_ptr(glm::mat4(1.0)));
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, textureActivaID);
+			shaderTexture.setInt("outTexture", 0);
+			boxIntro.render();
+			glfwSwapBuffers(window);
+			continue;
+		}
 
 		/*******************************************ww
 		 * Casa
@@ -1763,11 +2173,11 @@ void applicationLoop() {
 		modelMatrixTorrePared3Body = glm::scale(modelMatrixTorrePared3Body, glm::vec3(0.8));
 		torrePared3.render(modelMatrixTorrePared3Body);
 		// Torre Entrada
-		glm::mat4 modelMatrixTorreEntradaBody = glm::mat4(modelMatrixTorreEntrada);
-		modelMatrixTorreEntrada[3].y = terrain.getHeightTerrain(modelMatrixTorreEntrada[3].x, modelMatrixTorreEntrada[3].z);
-		modelMatrixTorreEntradaBody = glm::translate(modelMatrixTorreEntradaBody, glm::vec3(0.0, 0.0, 0.0));
-		modelMatrixTorreEntradaBody = glm::scale(modelMatrixTorreEntradaBody, glm::vec3(0.8));
-		torreEntrada.render(modelMatrixTorreEntradaBody);
+		glm::mat4 modelMatrixCasa1TorreEntradaBody = glm::mat4(modelMatrixCasa1TorreEntrada);
+		modelMatrixCasa1TorreEntrada[3].y = terrain.getHeightTerrain(modelMatrixCasa1TorreEntrada[3].x, modelMatrixCasa1TorreEntrada[3].z);
+		modelMatrixCasa1TorreEntradaBody = glm::translate(modelMatrixCasa1TorreEntradaBody, glm::vec3(0.0, 0.0, 0.0));
+		modelMatrixCasa1TorreEntradaBody = glm::scale(modelMatrixCasa1TorreEntradaBody, glm::vec3(0.8));
+		casa1TorreEntrada.render(modelMatrixCasa1TorreEntradaBody);
 		// Torre Puerta
 		glm::mat4 modelMatrixTorrePuertaBody = glm::mat4(modelMatrixTorrePuerta);
 		modelMatrixTorrePuerta[3].y = terrain.getHeightTerrain(modelMatrixTorrePuerta[3].x, modelMatrixTorrePuerta[3].z);
@@ -1911,6 +2321,248 @@ void applicationLoop() {
 		modelMatrixCasa3PuertaCBody = glm::translate(modelMatrixCasa3PuertaCBody, glm::vec3(0.0, 0.0, 0.0));
 		modelMatrixCasa3PuertaCBody = glm::scale(modelMatrixCasa3PuertaCBody, glm::vec3(0.8));
 		casa3PuertaC.render(modelMatrixCasa3PuertaCBody);
+		// Lago
+		// Pared 1
+		glm::mat4 modelMatrixLagoPared1Body = glm::mat4(modelMatrixLagoPared1);
+		modelMatrixLagoPared1[3].y = terrain.getHeightTerrain(modelMatrixLagoPared1[3].x, modelMatrixLagoPared1[3].z);
+		modelMatrixLagoPared1Body = glm::rotate(modelMatrixLagoPared1Body, glm::radians(35.0f), glm::vec3(0, 1, 0));
+		modelMatrixLagoPared1Body = glm::scale(modelMatrixLagoPared1Body, glm::vec3(0.8));
+		lagoPared1.render(modelMatrixLagoPared1Body);
+		// Pared 2
+		glm::mat4 modelMatrixLagoPared2Body = glm::mat4(modelMatrixLagoPared2);
+		modelMatrixLagoPared2[3].y = terrain.getHeightTerrain(modelMatrixLagoPared2[3].x, modelMatrixLagoPared2[3].z);
+		modelMatrixLagoPared2Body = glm::rotate(modelMatrixLagoPared2Body, glm::radians(35.0f), glm::vec3(0, 1, 0));
+		modelMatrixLagoPared2Body = glm::scale(modelMatrixLagoPared2Body, glm::vec3(0.8));
+		lagoPared2.render(modelMatrixLagoPared2Body);
+		// Techo
+		glm::mat4 modelMatrixLagoTechoBody = glm::mat4(modelMatrixLagoTecho);
+		modelMatrixLagoTecho[3].y = terrain.getHeightTerrain(modelMatrixLagoTecho[3].x, modelMatrixLagoTecho[3].z);
+		modelMatrixLagoTechoBody = glm::rotate(modelMatrixLagoTechoBody, glm::radians(35.0f), glm::vec3(0, 1, 0));
+		modelMatrixLagoTechoBody = glm::scale(modelMatrixLagoTechoBody, glm::vec3(0.8));
+		lagoTecho.render(modelMatrixLagoTechoBody);
+		// Ruina
+		// Pilar 1
+		glm::mat4 modelMatrixRuinaPilar1Body = glm::mat4(modelMatrixRuinaPilar1);
+		modelMatrixRuinaPilar1[3].y = terrain.getHeightTerrain(modelMatrixRuinaPilar1[3].x, modelMatrixRuinaPilar1[3].z);
+		modelMatrixRuinaPilar1Body = glm::rotate(modelMatrixRuinaPilar1Body, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		modelMatrixRuinaPilar1Body = glm::scale(modelMatrixRuinaPilar1Body, glm::vec3(0.8));
+		ruinaPilar1.render(modelMatrixRuinaPilar1Body);
+		// Pilar 2
+		glm::mat4 modelMatrixRuinaPilar2Body = glm::mat4(modelMatrixRuinaPilar2);
+		modelMatrixRuinaPilar2[3].y = terrain.getHeightTerrain(modelMatrixRuinaPilar2[3].x, modelMatrixRuinaPilar2[3].z);
+		modelMatrixRuinaPilar2Body = glm::rotate(modelMatrixRuinaPilar2Body, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		modelMatrixRuinaPilar2Body = glm::scale(modelMatrixRuinaPilar2Body, glm::vec3(0.8));
+		ruinaPilar2.render(modelMatrixRuinaPilar2Body);
+		// Pilar 3
+		glm::mat4 modelMatrixRuinaPilar3Body = glm::mat4(modelMatrixRuinaPilar3);
+		modelMatrixRuinaPilar3[3].y = terrain.getHeightTerrain(modelMatrixRuinaPilar3[3].x, modelMatrixRuinaPilar3[3].z);
+		modelMatrixRuinaPilar3Body = glm::rotate(modelMatrixRuinaPilar3Body, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		modelMatrixRuinaPilar3Body = glm::scale(modelMatrixRuinaPilar3Body, glm::vec3(0.8));
+		ruinaPilar3.render(modelMatrixRuinaPilar3Body);
+		// Pilar 4
+		glm::mat4 modelMatrixRuinaPilar4Body = glm::mat4(modelMatrixRuinaPilar4);
+		modelMatrixRuinaPilar4[3].y = terrain.getHeightTerrain(modelMatrixRuinaPilar4[3].x, modelMatrixRuinaPilar4[3].z);
+		modelMatrixRuinaPilar4Body = glm::rotate(modelMatrixRuinaPilar4Body, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		modelMatrixRuinaPilar4Body = glm::scale(modelMatrixRuinaPilar4Body, glm::vec3(0.8));
+		ruinaPilar4.render(modelMatrixRuinaPilar4Body);
+		// Plataforma
+		glm::mat4 modelMatrixRuinaPlataformaBody = glm::mat4(modelMatrixRuinaPlataforma);
+		modelMatrixRuinaPlataforma[3].y = terrain.getHeightTerrain(modelMatrixRuinaPlataforma[3].x, modelMatrixRuinaPlataforma[3].z);
+		modelMatrixRuinaPlataformaBody = glm::rotate(modelMatrixRuinaPlataformaBody, glm::radians(0.0f), glm::vec3(0, 1, 0));
+		modelMatrixRuinaPlataformaBody = glm::scale(modelMatrixRuinaPlataformaBody, glm::vec3(0.8));
+		ruinaPlataforma.render(modelMatrixRuinaPlataformaBody);
+		// Iglesia
+		// Entrada
+		glm::mat4 modelMatrixIglesiaEntradaBody = glm::mat4(modelMatrixIglesiaEntrada);
+		modelMatrixIglesiaEntrada[3].y = terrain.getHeightTerrain(modelMatrixIglesiaEntrada[3].x, modelMatrixIglesiaEntrada[3].z);
+		modelMatrixIglesiaEntradaBody = glm::rotate(modelMatrixIglesiaEntradaBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaEntradaBody = glm::scale(modelMatrixIglesiaEntradaBody, glm::vec3(0.8));
+		iglesiaEntrada.render(modelMatrixIglesiaEntradaBody);
+		// Entrada A
+		glm::mat4 modelMatrixIglesiaEntradaABody = glm::mat4(modelMatrixIglesiaEntradaA);
+		modelMatrixIglesiaEntradaA[3].y = terrain.getHeightTerrain(modelMatrixIglesiaEntradaA[3].x, modelMatrixIglesiaEntradaA[3].z);
+		modelMatrixIglesiaEntradaABody = glm::rotate(modelMatrixIglesiaEntradaABody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaEntradaABody = glm::scale(modelMatrixIglesiaEntradaABody, glm::vec3(0.8));
+		iglesiaEntradaA.render(modelMatrixIglesiaEntradaABody);
+		// Entrada B
+		glm::mat4 modelMatrixIglesiaEntradaBBody = glm::mat4(modelMatrixIglesiaEntradaB);
+		modelMatrixIglesiaEntradaB[3].y = terrain.getHeightTerrain(modelMatrixIglesiaEntradaB[3].x, modelMatrixIglesiaEntradaB[3].z);
+		modelMatrixIglesiaEntradaBBody = glm::rotate(modelMatrixIglesiaEntradaBBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaEntradaBBody = glm::scale(modelMatrixIglesiaEntradaBBody, glm::vec3(0.8));
+		iglesiaEntradaB.render(modelMatrixIglesiaEntradaBBody);
+		// Techo A
+		glm::mat4 modelMatrixIglesiaTechoABody = glm::mat4(modelMatrixIglesiaTechoA);
+		modelMatrixIglesiaTechoA[3].y = terrain.getHeightTerrain(modelMatrixIglesiaTechoA[3].x, modelMatrixIglesiaTechoA[3].z);
+		modelMatrixIglesiaTechoABody = glm::rotate(modelMatrixIglesiaTechoABody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaTechoABody = glm::scale(modelMatrixIglesiaTechoABody, glm::vec3(0.8));
+		iglesiaTechoA.render(modelMatrixIglesiaTechoABody);
+		// Techo B
+		glm::mat4 modelMatrixIglesiaTechoBBody = glm::mat4(modelMatrixIglesiaTechoB);
+		modelMatrixIglesiaTechoB[3].y = terrain.getHeightTerrain(modelMatrixIglesiaTechoB[3].x, modelMatrixIglesiaTechoB[3].z);
+		modelMatrixIglesiaTechoBBody = glm::rotate(modelMatrixIglesiaTechoBBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaTechoBBody = glm::scale(modelMatrixIglesiaTechoBBody, glm::vec3(0.8));
+		iglesiaTechoB.render(modelMatrixIglesiaTechoBBody);
+		// Techo C
+		glm::mat4 modelMatrixIglesiaTechoCBody = glm::mat4(modelMatrixIglesiaTechoC);
+		modelMatrixIglesiaTechoC[3].y = terrain.getHeightTerrain(modelMatrixIglesiaTechoC[3].x, modelMatrixIglesiaTechoC[3].z);
+		modelMatrixIglesiaTechoCBody = glm::rotate(modelMatrixIglesiaTechoCBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaTechoCBody = glm::scale(modelMatrixIglesiaTechoCBody, glm::vec3(0.8));
+		iglesiaTechoC.render(modelMatrixIglesiaTechoCBody);
+		// Pared 1A
+		glm::mat4 modelMatrixIglesiaPared1ABody = glm::mat4(modelMatrixIglesiaPared1A);
+		modelMatrixIglesiaPared1A[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared1A[3].x, modelMatrixIglesiaPared1A[3].z);
+		modelMatrixIglesiaPared1ABody = glm::rotate(modelMatrixIglesiaPared1ABody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared1ABody = glm::scale(modelMatrixIglesiaPared1ABody, glm::vec3(0.8));
+		iglesiaPared1A.render(modelMatrixIglesiaPared1ABody);
+		// Pared 1B
+		glm::mat4 modelMatrixIglesiaPared1BBody = glm::mat4(modelMatrixIglesiaPared1B);
+		modelMatrixIglesiaPared1B[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared1B[3].x, modelMatrixIglesiaPared1B[3].z);
+		modelMatrixIglesiaPared1BBody = glm::rotate(modelMatrixIglesiaPared1BBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared1BBody = glm::scale(modelMatrixIglesiaPared1BBody, glm::vec3(0.8));
+		iglesiaPared1B.render(modelMatrixIglesiaPared1BBody);
+		// Pared 1C
+		glm::mat4 modelMatrixIglesiaPared1CBody = glm::mat4(modelMatrixIglesiaPared1C);
+		modelMatrixIglesiaPared1C[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared1C[3].x, modelMatrixIglesiaPared1C[3].z);
+		modelMatrixIglesiaPared1CBody = glm::rotate(modelMatrixIglesiaPared1CBody, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared1CBody = glm::scale(modelMatrixIglesiaPared1CBody, glm::vec3(0.8));
+		iglesiaPared1C.render(modelMatrixIglesiaPared1CBody);
+		// Pared 2
+		glm::mat4 modelMatrixIglesiaPared2Body = glm::mat4(modelMatrixIglesiaPared2);
+		modelMatrixIglesiaPared2[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared2[3].x, modelMatrixIglesiaPared2[3].z);
+		modelMatrixIglesiaPared2Body = glm::rotate(modelMatrixIglesiaPared2Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared2Body = glm::scale(modelMatrixIglesiaPared2Body, glm::vec3(0.8));
+		iglesiaPared2.render(modelMatrixIglesiaPared2Body);
+		// Pared 3
+		glm::mat4 modelMatrixIglesiaPared3Body = glm::mat4(modelMatrixIglesiaPared3);
+		modelMatrixIglesiaPared3[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared3[3].x, modelMatrixIglesiaPared3[3].z);
+		modelMatrixIglesiaPared3Body = glm::rotate(modelMatrixIglesiaPared3Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared3Body = glm::scale(modelMatrixIglesiaPared3Body, glm::vec3(0.8));
+		iglesiaPared3.render(modelMatrixIglesiaPared3Body);
+		// Pared 4
+		glm::mat4 modelMatrixIglesiaPared4Body = glm::mat4(modelMatrixIglesiaPared4);
+		modelMatrixIglesiaPared4[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared4[3].x, modelMatrixIglesiaPared4[3].z);
+		modelMatrixIglesiaPared4Body = glm::rotate(modelMatrixIglesiaPared4Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared4Body = glm::scale(modelMatrixIglesiaPared4Body, glm::vec3(0.8));
+		iglesiaPared4.render(modelMatrixIglesiaPared4Body);
+		// Pared 5
+		glm::mat4 modelMatrixIglesiaPared5Body = glm::mat4(modelMatrixIglesiaPared5);
+		modelMatrixIglesiaPared5[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared5[3].x, modelMatrixIglesiaPared5[3].z);
+		modelMatrixIglesiaPared5Body = glm::rotate(modelMatrixIglesiaPared5Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared5Body = glm::scale(modelMatrixIglesiaPared5Body, glm::vec3(0.8));
+		iglesiaPared5.render(modelMatrixIglesiaPared5Body);
+		// Pared 6
+		glm::mat4 modelMatrixIglesiaPared6Body = glm::mat4(modelMatrixIglesiaPared6);
+		modelMatrixIglesiaPared6[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared6[3].x, modelMatrixIglesiaPared6[3].z);
+		modelMatrixIglesiaPared6Body = glm::rotate(modelMatrixIglesiaPared6Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared6Body = glm::scale(modelMatrixIglesiaPared6Body, glm::vec3(0.8));
+		iglesiaPared6.render(modelMatrixIglesiaPared6Body);
+		// Pared 7
+		glm::mat4 modelMatrixIglesiaPared7Body = glm::mat4(modelMatrixIglesiaPared7);
+		modelMatrixIglesiaPared7[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared7[3].x, modelMatrixIglesiaPared7[3].z);
+		modelMatrixIglesiaPared7Body = glm::rotate(modelMatrixIglesiaPared7Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared7Body = glm::scale(modelMatrixIglesiaPared7Body, glm::vec3(0.8));
+		iglesiaPared7.render(modelMatrixIglesiaPared7Body);
+		// Pared 8
+		glm::mat4 modelMatrixIglesiaPared8Body = glm::mat4(modelMatrixIglesiaPared8);
+		modelMatrixIglesiaPared8[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared8[3].x, modelMatrixIglesiaPared8[3].z);
+		modelMatrixIglesiaPared8Body = glm::rotate(modelMatrixIglesiaPared8Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared8Body = glm::scale(modelMatrixIglesiaPared8Body, glm::vec3(0.8));
+		iglesiaPared8.render(modelMatrixIglesiaPared8Body);
+		// Pared 9
+		glm::mat4 modelMatrixIglesiaPared9Body = glm::mat4(modelMatrixIglesiaPared9);
+		modelMatrixIglesiaPared9[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared9[3].x, modelMatrixIglesiaPared9[3].z);
+		modelMatrixIglesiaPared9Body = glm::rotate(modelMatrixIglesiaPared9Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared9Body = glm::scale(modelMatrixIglesiaPared9Body, glm::vec3(0.8));
+		iglesiaPared9.render(modelMatrixIglesiaPared9Body);
+		// Pared 10
+		glm::mat4 modelMatrixIglesiaPared10Body = glm::mat4(modelMatrixIglesiaPared10);
+		modelMatrixIglesiaPared10[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared10[3].x, modelMatrixIglesiaPared10[3].z);
+		modelMatrixIglesiaPared10Body = glm::rotate(modelMatrixIglesiaPared10Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared10Body = glm::scale(modelMatrixIglesiaPared10Body, glm::vec3(0.8));
+		iglesiaPared10.render(modelMatrixIglesiaPared10Body);
+		// Pared 11
+		glm::mat4 modelMatrixIglesiaPared11Body = glm::mat4(modelMatrixIglesiaPared11);
+		modelMatrixIglesiaPared11[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared11[3].x, modelMatrixIglesiaPared11[3].z);
+		modelMatrixIglesiaPared11Body = glm::rotate(modelMatrixIglesiaPared11Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared11Body = glm::scale(modelMatrixIglesiaPared11Body, glm::vec3(0.8));
+		iglesiaPared11.render(modelMatrixIglesiaPared11Body);
+		// Pared 12
+		glm::mat4 modelMatrixIglesiaPared12Body = glm::mat4(modelMatrixIglesiaPared12);
+		modelMatrixIglesiaPared12[3].y = terrain.getHeightTerrain(modelMatrixIglesiaPared12[3].x, modelMatrixIglesiaPared12[3].z);
+		modelMatrixIglesiaPared12Body = glm::rotate(modelMatrixIglesiaPared12Body, glm::radians(45.0f), glm::vec3(0, 1, 0));
+		modelMatrixIglesiaPared12Body = glm::scale(modelMatrixIglesiaPared12Body, glm::vec3(0.8));
+		iglesiaPared12.render(modelMatrixIglesiaPared12Body);
+		// Torre
+		// Torre
+		for(int i = 0; i < torrePos.size(); i++) {
+			glm::vec3 pos = torrePos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			torre.setPosition(pos);
+			torre.setScale(glm::vec3(0.8f));
+			torre.setOrientation(glm::vec3(0, torrePos[i].second, 0));
+			torre.render();
+		}
+		// Entrada
+		glm::mat4 modelMatrixTorreEntradaBody = glm::mat4(modelMatrixTorreEntrada);
+		modelMatrixTorreEntrada[3].y = terrain.getHeightTerrain(modelMatrixTorreEntrada[3].x, modelMatrixTorreEntrada[3].z);
+		modelMatrixTorreEntradaBody = glm::scale(modelMatrixTorreEntradaBody, glm::vec3(0.8));
+		torreEntrada.render(modelMatrixTorreEntradaBody);
+		// Viga
+		glm::mat4 modelMatrixTorreVigaBody = glm::mat4(modelMatrixTorreViga);
+		modelMatrixTorreViga[3].y = terrain.getHeightTerrain(modelMatrixTorreViga[3].x, modelMatrixTorreViga[3].z);
+		modelMatrixTorreVigaBody = glm::scale(modelMatrixTorreVigaBody, glm::vec3(0.8));
+		torreViga.render(modelMatrixTorreVigaBody);
+		// Ventanas
+		glm::mat4 modelMatrixTorreVentanasBody = glm::mat4(modelMatrixTorreVentanas);
+		modelMatrixTorreVentanas[3].y = terrain.getHeightTerrain(modelMatrixTorreVentanas[3].x, modelMatrixTorreVentanas[3].z);
+		modelMatrixTorreVentanasBody = glm::scale(modelMatrixTorreVentanasBody, glm::vec3(0.8));
+		torreVentanas.render(modelMatrixTorreVentanasBody);
+		// Ventanas Techo
+		glm::mat4 modelMatrixTorreVentanasTechoBody = glm::mat4(modelMatrixTorreVentanasTecho);
+		modelMatrixTorreVentanasTecho[3].y = terrain.getHeightTerrain(modelMatrixTorreVentanasTecho[3].x, modelMatrixTorreVentanasTecho[3].z);
+		modelMatrixTorreVentanasTechoBody = glm::scale(modelMatrixTorreVentanasTechoBody, glm::vec3(0.8));
+		torreVentanasTecho.render(modelMatrixTorreVentanasTechoBody);
+		// Anillos
+		glm::mat4 modelMatrixTorreAnillosBody = glm::mat4(modelMatrixTorreAnillos);
+		modelMatrixTorreAnillos[3].y = terrain.getHeightTerrain(modelMatrixTorreAnillos[3].x, modelMatrixTorreAnillos[3].z);
+		modelMatrixTorreAnillosBody = glm::scale(modelMatrixTorreAnillosBody, glm::vec3(0.8));
+		torreAnillos.render(modelMatrixTorreAnillosBody);
+		// Top
+		for(int i = 0; i < torreTopPos.size(); i++) {
+			glm::vec3 pos = torreTopPos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			torreTop.setPosition(pos);
+			torreTop.setScale(glm::vec3(0.8f));
+			torreTop.setOrientation(glm::vec3(0, torreTopPos[i].second, 0));
+			torreTop.render();
+		}
+		// Bordes
+		for(int i = 0; i < bordePos.size(); i++) {
+			glm::vec3 pos = bordePos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			torreBorde.setPosition(pos);
+			torreBorde.setScale(glm::vec3(0.8f));
+			torreBorde.setOrientation(glm::vec3(0, bordePos[i].second, 0));
+			torreBorde.render();
+		}
+		// Plataforma 1
+		for(int i = 0; i < plat1Pos.size(); i++) {
+			glm::vec3 pos = plat1Pos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			torrePlataforma.setPosition(pos);
+			torrePlataforma.setScale(glm::vec3(0.8f));
+			torrePlataforma.setOrientation(glm::vec3(0, plat1Pos[i].second, 0));
+			torrePlataforma.render();
+		}
+		// Plataforma 2
+		for(int i = 0; i < plat2Pos.size(); i++) {
+			glm::vec3 pos = plat2Pos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			torrePlataforma.setPosition(pos);
+			torrePlataforma.setScale(glm::vec3(0.8f));
+			torrePlataforma.setOrientation(glm::vec3(0, plat2Pos[i].second, 0));
+			torrePlataforma.render();
+		}
 		// Objetos
 		for(int i = 0; i < boxPositions.size(); i++) {
 			glm::vec3 pos = boxPositions[i].first;
@@ -1920,26 +2572,58 @@ void applicationLoop() {
 			caja.setOrientation(glm::vec3(0, boxPositions[i].second, 0));
 			caja.render();
 		}
-		for(int i = 0; i < gemPositions.size(); i++) {
+		for(int i = 0; i < (int)gemPositions.size(); i++) {
+			if(gemCollected[i]) continue;  // No renderizar gemas recolectadas
 			glm::vec3 pos = gemPositions[i].first;
-			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y + 0.2f * std::sin(currTime * 2.5f + i * 1.0f);
+			float rot = gemPositions[i].second + std::fmod(currTime * 60.0f, 360.0f);
 			gem.setPosition(pos);
 			gem.setScale(glm::vec3(0.8f));
-			gem.setOrientation(glm::vec3(0, gemPositions[i].second, 0));
+			gem.setOrientation(glm::vec3(0, rot, 0));
 			gem.render();
 		}
-		// Llave
-		glm::mat4 modelMatrixCasa1KeyBody = glm::mat4(modelMatrixCasa1Key);
-		modelMatrixCasa1Key[3].y = terrain.getHeightTerrain(modelMatrixCasa1Key[3].x, modelMatrixCasa1Key[3].z);
-		modelMatrixCasa1KeyBody = glm::translate(modelMatrixCasa1KeyBody, glm::vec3(0.0, 0.0, 0.0));
-		modelMatrixCasa1KeyBody = glm::scale(modelMatrixCasa1KeyBody, glm::vec3(0.8));
-		key.render(modelMatrixCasa1KeyBody);
+		// Llave (flota y rota igual que las gemas)
+		glm::mat4 modelMatrixCasa1KeyBody = glm::mat4(1.0f);
+		if(!keyCollected) {
+			glm::vec3 keyPos = keyPosition;
+			keyPos.y = terrain.getHeightTerrain(keyPos.x, keyPos.z) + keyPos.y + 0.2f * std::sin(currTime * 2.5f);
+			float keyRot = std::fmod(currTime * 60.0f, 360.0f);
+			modelMatrixCasa1KeyBody = glm::translate(modelMatrixCasa1KeyBody, keyPos);
+			modelMatrixCasa1KeyBody = glm::rotate(modelMatrixCasa1KeyBody, glm::radians(keyRot), glm::vec3(0.0f, 1.0f, 0.0f));
+			modelMatrixCasa1KeyBody = glm::scale(modelMatrixCasa1KeyBody, glm::vec3(0.8));
+			key.render(modelMatrixCasa1KeyBody);
+		}
 		// Árbol
 		glm::mat4 modelMatrixBigTreeBody = glm::mat4(modelMatrixBigTree);
 		modelMatrixBigTree[3].y = terrain.getHeightTerrain(modelMatrixBigTree[3].x, modelMatrixBigTree[3].z);
 		modelMatrixBigTreeBody = glm::translate(modelMatrixBigTreeBody, glm::vec3(0.0, 0.0, 0.0));
 		modelMatrixBigTreeBody = glm::scale(modelMatrixBigTreeBody, glm::vec3(1.0));
 		bigTree.render(modelMatrixBigTreeBody);
+		// Abetos
+		for(int i = 0; i < treesPositions.size(); i++) {
+			glm::vec3 pos = treesPositions[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			spruceLeaves.setPosition(pos);
+			spruceLog.setPosition(pos);
+			spruceLeaves.setScale(glm::vec3(1.0f));
+			spruceLog.setScale(glm::vec3(1.0f));
+			spruceLeaves.setOrientation(glm::vec3(0, treesPositions[i].second, 0));
+			spruceLog.setOrientation(glm::vec3(0, treesPositions[i].second, 0));
+			spruceLeaves.render();
+			spruceLog.render();
+		}
+		// Animación de descenso de gema 4 al recoger la llave
+		if(gem4Descending && !gemCollected[4]) {
+			float currentY = gemPositions[4].first.y;
+			if(currentY > gem4TargetY) {
+				gemPositions[4].first.y -= gem4DescentSpeed * (float)deltaTime;
+				if(gemPositions[4].first.y < gem4TargetY) {
+					gemPositions[4].first.y = gem4TargetY;
+				}
+			} else {
+				gem4Descending = false;
+			}
+		}
 		/*******************************************
 		* Objetos animados por huesos
 		*******************************************/
@@ -2608,24 +3292,6 @@ void applicationLoop() {
 		colliderCasa2ParedI.c = modelColliderCasa2ParedI[3];
 		colliderCasa2ParedI.e = casa2ParedI.getObb().e * glm::vec3(0.8);
 		addOrUpdateColliders(collidersOBB, "casa2ParedI", colliderCasa2ParedI, modelColliderCasa2ParedI);
-		// Techo A
-		glm::mat4 modelColliderCasa2TechoA = glm::mat4(modelMatrixCasa2TechoA);
-		AbstractModel::OBB colliderCasa2TechoA;
-		colliderCasa2TechoA.u = glm::quat_cast(modelColliderCasa2TechoA);
-		modelColliderCasa2TechoA = glm::scale(modelColliderCasa2TechoA, glm::vec3(0.8));
-		modelColliderCasa2TechoA = glm::translate(modelMatrixCasa2TechoABody, casa2TechoA.getObb().c);
-		colliderCasa2TechoA.c = modelColliderCasa2TechoA[3];
-		colliderCasa2TechoA.e = casa2TechoA.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2TechoA", colliderCasa2TechoA, modelColliderCasa2TechoA);
-		// Techo B
-		glm::mat4 modelColliderCasa2TechoB = glm::mat4(modelMatrixCasa2TechoB);
-		AbstractModel::OBB colliderCasa2TechoB;
-		colliderCasa2TechoB.u = glm::quat_cast(modelColliderCasa2TechoB);
-		modelColliderCasa2TechoB = glm::scale(modelColliderCasa2TechoB, glm::vec3(0.8));
-		modelColliderCasa2TechoB = glm::translate(modelMatrixCasa2TechoBBody, casa2TechoB.getObb().c);
-		colliderCasa2TechoB.c = modelColliderCasa2TechoB[3];
-		colliderCasa2TechoB.e = casa2TechoB.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2TechoB", colliderCasa2TechoB, modelColliderCasa2TechoB);
 		// Techo C
 		glm::mat4 modelColliderCasa2TechoC = glm::mat4(modelMatrixCasa2TechoC);
 		AbstractModel::OBB colliderCasa2TechoC;
@@ -2635,42 +3301,6 @@ void applicationLoop() {
 		colliderCasa2TechoC.c = modelColliderCasa2TechoC[3];
 		colliderCasa2TechoC.e = casa2TechoC.getObb().e * glm::vec3(0.8);
 		addOrUpdateColliders(collidersOBB, "casa2TechoC", colliderCasa2TechoC, modelColliderCasa2TechoC);
-		// Ventana A
-		glm::mat4 modelColliderCasa2VentanaA = glm::mat4(modelMatrixCasa2VentanaA);
-		AbstractModel::OBB colliderCasa2VentanaA;
-		colliderCasa2VentanaA.u = glm::quat_cast(modelColliderCasa2VentanaA);
-		modelColliderCasa2VentanaA = glm::scale(modelColliderCasa2VentanaA, glm::vec3(0.8));
-		modelColliderCasa2VentanaA = glm::translate(modelMatrixCasa2VentanaABody, casa2VentanaA.getObb().c);
-		colliderCasa2VentanaA.c = modelColliderCasa2VentanaA[3];
-		colliderCasa2VentanaA.e = casa2VentanaA.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2VentanaA", colliderCasa2VentanaA, modelColliderCasa2VentanaA);
-		// Ventana B
-		glm::mat4 modelColliderCasa2VentanaB = glm::mat4(modelMatrixCasa2VentanaB);
-		AbstractModel::OBB colliderCasa2VentanaB;
-		colliderCasa2VentanaB.u = glm::quat_cast(modelColliderCasa2VentanaB);
-		modelColliderCasa2VentanaB = glm::scale(modelColliderCasa2VentanaB, glm::vec3(0.8));
-		modelColliderCasa2VentanaB = glm::translate(modelMatrixCasa2VentanaBBody, casa2VentanaB.getObb().c);
-		colliderCasa2VentanaB.c = modelColliderCasa2VentanaB[3];
-		colliderCasa2VentanaB.e = casa2VentanaB.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2VentanaB", colliderCasa2VentanaB, modelColliderCasa2VentanaB);
-		// Ventana C
-		glm::mat4 modelColliderCasa2VentanaC = glm::mat4(modelMatrixCasa2VentanaC);
-		AbstractModel::OBB colliderCasa2VentanaC;
-		colliderCasa2VentanaC.u = glm::quat_cast(modelColliderCasa2VentanaC);
-		modelColliderCasa2VentanaC = glm::scale(modelColliderCasa2VentanaC, glm::vec3(0.8));
-		modelColliderCasa2VentanaC = glm::translate(modelMatrixCasa2VentanaCBody, casa2VentanaC.getObb().c);
-		colliderCasa2VentanaC.c = modelColliderCasa2VentanaC[3];
-		colliderCasa2VentanaC.e = casa2VentanaC.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2VentanaC", colliderCasa2VentanaC, modelColliderCasa2VentanaC);
-		// Ventana D
-		glm::mat4 modelColliderCasa2VentanaD = glm::mat4(modelMatrixCasa2VentanaD);
-		AbstractModel::OBB colliderCasa2VentanaD;
-		colliderCasa2VentanaD.u = glm::quat_cast(modelColliderCasa2VentanaD);
-		modelColliderCasa2VentanaD = glm::scale(modelColliderCasa2VentanaD, glm::vec3(0.8));
-		modelColliderCasa2VentanaD = glm::translate(modelMatrixCasa2VentanaDBody, casa2VentanaD.getObb().c);
-		colliderCasa2VentanaD.c = modelColliderCasa2VentanaD[3];
-		colliderCasa2VentanaD.e = casa2VentanaD.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa2VentanaD", colliderCasa2VentanaD, modelColliderCasa2VentanaD);
 		// Casa 3
 		// Base A
 		glm::mat4 modelColliderCasa3BaseA = glm::mat4(modelMatrixCasa3BaseA);
@@ -2708,42 +3338,369 @@ void applicationLoop() {
 		colliderCasa3TechoB.c = modelColliderCasa3TechoB[3];
 		colliderCasa3TechoB.e = casa3TechoB.getObb().e * glm::vec3(0.8);
 		addOrUpdateColliders(collidersOBB, "casa3TechoB", colliderCasa3TechoB, modelColliderCasa3TechoB);
-		// Ventana A
-		glm::mat4 modelColliderCasa3VentanaA = glm::mat4(modelMatrixCasa3VentanaA);
-		AbstractModel::OBB colliderCasa3VentanaA;
-		colliderCasa3VentanaA.u = glm::quat_cast(modelColliderCasa3VentanaA);
-		modelColliderCasa3VentanaA = glm::scale(modelColliderCasa3VentanaA, glm::vec3(0.8));
-		modelColliderCasa3VentanaA = glm::translate(modelMatrixCasa3VentanaABody, casa3VentanaA.getObb().c);
-		colliderCasa3VentanaA.c = modelColliderCasa3VentanaA[3];
-		colliderCasa3VentanaA.e = casa3VentanaA.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa3VentanaA", colliderCasa3VentanaA, modelColliderCasa3VentanaA);
-		// Puerta A
-		glm::mat4 modelColliderCasa3PuertaA = glm::mat4(modelMatrixCasa3PuertaA);
-		AbstractModel::OBB colliderCasa3PuertaA;
-		colliderCasa3PuertaA.u = glm::quat_cast(modelColliderCasa3PuertaA);
-		modelColliderCasa3PuertaA = glm::scale(modelColliderCasa3PuertaA, glm::vec3(0.8));
-		modelColliderCasa3PuertaA = glm::translate(modelMatrixCasa3PuertaABody, casa3PuertaA.getObb().c);
-		colliderCasa3PuertaA.c = modelColliderCasa3PuertaA[3];
-		colliderCasa3PuertaA.e = casa3PuertaA.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa3PuertaA", colliderCasa3PuertaA, modelColliderCasa3PuertaA);
-		// Puerta B
-		glm::mat4 modelColliderCasa3PuertaB = glm::mat4(modelMatrixCasa3PuertaB);
-		AbstractModel::OBB colliderCasa3PuertaB;
-		colliderCasa3PuertaB.u = glm::quat_cast(modelColliderCasa3PuertaB);
-		modelColliderCasa3PuertaB = glm::scale(modelColliderCasa3PuertaB, glm::vec3(0.8));
-		modelColliderCasa3PuertaB = glm::translate(modelMatrixCasa3PuertaBBody, casa3PuertaB.getObb().c);
-		colliderCasa3PuertaB.c = modelColliderCasa3PuertaB[3];
-		colliderCasa3PuertaB.e = casa3PuertaB.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa3PuertaB", colliderCasa3PuertaB, modelColliderCasa3PuertaB);
-		// Puerta C
-		glm::mat4 modelColliderCasa3PuertaC = glm::mat4(modelMatrixCasa3PuertaC);
-		AbstractModel::OBB colliderCasa3PuertaC;
-		colliderCasa3PuertaC.u = glm::quat_cast(modelColliderCasa3PuertaC);
-		modelColliderCasa3PuertaC = glm::scale(modelColliderCasa3PuertaC, glm::vec3(0.8));
-		modelColliderCasa3PuertaC = glm::translate(modelMatrixCasa3PuertaCBody, casa3PuertaC.getObb().c);
-		colliderCasa3PuertaC.c = modelColliderCasa3PuertaC[3];
-		colliderCasa3PuertaC.e = casa3PuertaC.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "casa3PuertaC", colliderCasa3PuertaC, modelColliderCasa3PuertaC);
+		// Lago
+		// Pared 1
+		glm::mat4 modelColliderLagoPared1 = glm::mat4(modelMatrixLagoPared1);
+		modelColliderLagoPared1 = glm::rotate(modelColliderLagoPared1, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderLagoPared1;
+		colliderLagoPared1.u = glm::quat_cast(modelColliderLagoPared1);
+		modelColliderLagoPared1 = glm::scale(modelColliderLagoPared1, glm::vec3(0.8));
+		modelColliderLagoPared1 = glm::translate(modelMatrixLagoPared1Body, lagoPared1.getObb().c);
+		colliderLagoPared1.c = modelColliderLagoPared1[3];
+		colliderLagoPared1.e = lagoPared1.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "lagoPared1", colliderLagoPared1, modelColliderLagoPared1);
+		// Pared 2
+		glm::mat4 modelColliderLagoPared2 = glm::mat4(modelMatrixLagoPared2);
+		modelColliderLagoPared2 = glm::rotate(modelColliderLagoPared2, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderLagoPared2;
+		colliderLagoPared2.u = glm::quat_cast(modelColliderLagoPared2);
+		modelColliderLagoPared2 = glm::scale(modelColliderLagoPared2, glm::vec3(0.8));
+		modelColliderLagoPared2 = glm::translate(modelMatrixLagoPared2Body, lagoPared2.getObb().c);
+		colliderLagoPared2.c = modelColliderLagoPared2[3];
+		colliderLagoPared2.e = lagoPared2.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "lagoPared2", colliderLagoPared2, modelColliderLagoPared2);
+		// Ruina
+		// Pilar 1
+		glm::mat4 modelColliderRuinaPilar1 = glm::mat4(modelMatrixRuinaPilar1);
+		AbstractModel::OBB colliderRuinaPilar1;
+		colliderRuinaPilar1.u = glm::quat_cast(modelColliderRuinaPilar1);
+		modelColliderRuinaPilar1 = glm::scale(modelColliderRuinaPilar1, glm::vec3(0.8));
+		modelColliderRuinaPilar1 = glm::translate(modelMatrixRuinaPilar1Body, ruinaPilar1.getObb().c);
+		colliderRuinaPilar1.c = modelColliderRuinaPilar1[3];
+		colliderRuinaPilar1.e = ruinaPilar1.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "ruinaPilar1", colliderRuinaPilar1, modelColliderRuinaPilar1);
+		// Pilar 2
+		glm::mat4 modelColliderRuinaPilar2 = glm::mat4(modelMatrixRuinaPilar2);
+		AbstractModel::OBB colliderRuinaPilar2;
+		colliderRuinaPilar2.u = glm::quat_cast(modelColliderRuinaPilar2);
+		modelColliderRuinaPilar2 = glm::scale(modelColliderRuinaPilar2, glm::vec3(0.8));
+		modelColliderRuinaPilar2 = glm::translate(modelMatrixRuinaPilar2Body, ruinaPilar2.getObb().c);
+		colliderRuinaPilar2.c = modelColliderRuinaPilar2[3];
+		colliderRuinaPilar2.e = ruinaPilar2.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "ruinaPilar2", colliderRuinaPilar2, modelColliderRuinaPilar2);
+		// Pilar 3
+		glm::mat4 modelColliderRuinaPilar3 = glm::mat4(modelMatrixRuinaPilar3);
+		AbstractModel::OBB colliderRuinaPilar3;
+		colliderRuinaPilar3.u = glm::quat_cast(modelColliderRuinaPilar3);
+		modelColliderRuinaPilar3 = glm::scale(modelColliderRuinaPilar3, glm::vec3(0.8));
+		modelColliderRuinaPilar3 = glm::translate(modelMatrixRuinaPilar3Body, ruinaPilar3.getObb().c);
+		colliderRuinaPilar3.c = modelColliderRuinaPilar3[3];
+		colliderRuinaPilar3.e = ruinaPilar3.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "ruinaPilar3", colliderRuinaPilar3, modelColliderRuinaPilar3);
+		// Pilar 4
+		glm::mat4 modelColliderRuinaPilar4 = glm::mat4(modelMatrixRuinaPilar4);
+		AbstractModel::OBB colliderRuinaPilar4;
+		colliderRuinaPilar4.u = glm::quat_cast(modelColliderRuinaPilar4);
+		modelColliderRuinaPilar4 = glm::scale(modelColliderRuinaPilar4, glm::vec3(0.8));
+		modelColliderRuinaPilar4 = glm::translate(modelMatrixRuinaPilar4Body, ruinaPilar4.getObb().c);
+		colliderRuinaPilar4.c = modelColliderRuinaPilar4[3];
+		colliderRuinaPilar4.e = ruinaPilar4.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "ruinaPilar4", colliderRuinaPilar4, modelColliderRuinaPilar4);
+		// Plataforma
+		glm::mat4 modelColliderRuinaPlataforma = glm::mat4(modelMatrixRuinaPlataforma);
+		AbstractModel::OBB colliderRuinaPlataforma;
+		colliderRuinaPlataforma.u = glm::quat_cast(modelColliderRuinaPlataforma);
+		modelColliderRuinaPlataforma = glm::scale(modelColliderRuinaPlataforma, glm::vec3(0.8));
+		modelColliderRuinaPlataforma = glm::translate(modelMatrixRuinaPlataformaBody, ruinaPlataforma.getObb().c);
+		colliderRuinaPlataforma.c = modelColliderRuinaPlataforma[3];
+		colliderRuinaPlataforma.e = ruinaPlataforma.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "ruinaPlataforma", colliderRuinaPlataforma, modelColliderRuinaPlataforma);
+		// Iglesia
+		// Entrada A
+		glm::mat4 modelColliderIglesiaEntradaA = glm::mat4(modelMatrixIglesiaEntradaA);
+		modelColliderIglesiaEntradaA = glm::rotate(modelColliderIglesiaEntradaA, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaEntradaA;
+		colliderIglesiaEntradaA.u = glm::quat_cast(modelColliderIglesiaEntradaA);
+		modelColliderIglesiaEntradaA = glm::scale(modelColliderIglesiaEntradaA, glm::vec3(0.8));
+		modelColliderIglesiaEntradaA = glm::translate(modelMatrixIglesiaEntradaABody, iglesiaEntradaA.getObb().c);
+		colliderIglesiaEntradaA.c = modelColliderIglesiaEntradaA[3];
+		colliderIglesiaEntradaA.e = iglesiaEntradaA.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaEntradaA", colliderIglesiaEntradaA, modelColliderIglesiaEntradaA);
+		// Entrada B
+		glm::mat4 modelColliderIglesiaEntradaB = glm::mat4(modelMatrixIglesiaEntradaB);
+		modelColliderIglesiaEntradaB = glm::rotate(modelColliderIglesiaEntradaB, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaEntradaB;
+		colliderIglesiaEntradaB.u = glm::quat_cast(modelColliderIglesiaEntradaB);
+		modelColliderIglesiaEntradaB = glm::scale(modelColliderIglesiaEntradaB, glm::vec3(0.8));
+		modelColliderIglesiaEntradaB = glm::translate(modelMatrixIglesiaEntradaBBody, iglesiaEntradaB.getObb().c);
+		colliderIglesiaEntradaB.c = modelColliderIglesiaEntradaB[3];
+		colliderIglesiaEntradaB.e = iglesiaEntradaB.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaEntradaB", colliderIglesiaEntradaB, modelColliderIglesiaEntradaB);
+		// Pared 1B
+		glm::mat4 modelColliderIglesiaPared1B = glm::mat4(modelMatrixIglesiaPared1B);
+		modelColliderIglesiaPared1B = glm::rotate(modelColliderIglesiaPared1B, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared1B;
+		colliderIglesiaPared1B.u = glm::quat_cast(modelColliderIglesiaPared1B);
+		modelColliderIglesiaPared1B = glm::scale(modelColliderIglesiaPared1B, glm::vec3(0.8));
+		modelColliderIglesiaPared1B = glm::translate(modelMatrixIglesiaPared1BBody, iglesiaPared1B.getObb().c);
+		colliderIglesiaPared1B.c = modelColliderIglesiaPared1B[3];
+		colliderIglesiaPared1B.e = iglesiaPared1B.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared1B", colliderIglesiaPared1B, modelColliderIglesiaPared1B);
+		// Pared 1C
+		glm::mat4 modelColliderIglesiaPared1C = glm::mat4(modelMatrixIglesiaPared1C);
+		modelColliderIglesiaPared1C = glm::rotate(modelColliderIglesiaPared1C, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared1C;
+		colliderIglesiaPared1C.u = glm::quat_cast(modelColliderIglesiaPared1C);
+		modelColliderIglesiaPared1C = glm::scale(modelColliderIglesiaPared1C, glm::vec3(0.8));
+		modelColliderIglesiaPared1C = glm::translate(modelMatrixIglesiaPared1CBody, iglesiaPared1C.getObb().c);
+		colliderIglesiaPared1C.c = modelColliderIglesiaPared1C[3];
+		colliderIglesiaPared1C.e = iglesiaPared1C.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared1C", colliderIglesiaPared1C, modelColliderIglesiaPared1C);
+		// Pared 2
+		glm::mat4 modelColliderIglesiaPared2 = glm::mat4(modelMatrixIglesiaPared2);
+		modelColliderIglesiaPared2 = glm::rotate(modelColliderIglesiaPared2, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared2;
+		colliderIglesiaPared2.u = glm::quat_cast(modelColliderIglesiaPared2);
+		modelColliderIglesiaPared2 = glm::scale(modelColliderIglesiaPared2, glm::vec3(0.8));
+		modelColliderIglesiaPared2 = glm::translate(modelMatrixIglesiaPared2Body, iglesiaPared2.getObb().c);
+		colliderIglesiaPared2.c = modelColliderIglesiaPared2[3];
+		colliderIglesiaPared2.e = iglesiaPared2.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared2", colliderIglesiaPared2, modelColliderIglesiaPared2);
+		// Pared 3
+		glm::mat4 modelColliderIglesiaPared3 = glm::mat4(modelMatrixIglesiaPared3);
+		modelColliderIglesiaPared3 = glm::rotate(modelColliderIglesiaPared3, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared3;
+		colliderIglesiaPared3.u = glm::quat_cast(modelColliderIglesiaPared3);
+		modelColliderIglesiaPared3 = glm::scale(modelColliderIglesiaPared3, glm::vec3(0.8));
+		modelColliderIglesiaPared3 = glm::translate(modelMatrixIglesiaPared3Body, iglesiaPared3.getObb().c);
+		colliderIglesiaPared3.c = modelColliderIglesiaPared3[3];
+		colliderIglesiaPared3.e = iglesiaPared3.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared3", colliderIglesiaPared3, modelColliderIglesiaPared3);
+		// Pared 4
+		glm::mat4 modelColliderIglesiaPared4 = glm::mat4(modelMatrixIglesiaPared4);
+		modelColliderIglesiaPared4 = glm::rotate(modelColliderIglesiaPared4, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared4;
+		colliderIglesiaPared4.u = glm::quat_cast(modelColliderIglesiaPared4);
+		modelColliderIglesiaPared4 = glm::scale(modelColliderIglesiaPared4, glm::vec3(0.8));
+		modelColliderIglesiaPared4 = glm::translate(modelMatrixIglesiaPared4Body, iglesiaPared4.getObb().c);
+		colliderIglesiaPared4.c = modelColliderIglesiaPared4[3];
+		colliderIglesiaPared4.e = iglesiaPared4.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared4", colliderIglesiaPared4, modelColliderIglesiaPared4);
+		// Pared 5
+		glm::mat4 modelColliderIglesiaPared5 = glm::mat4(modelMatrixIglesiaPared5);
+		modelColliderIglesiaPared5 = glm::rotate(modelColliderIglesiaPared5, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared5;
+		colliderIglesiaPared5.u = glm::quat_cast(modelColliderIglesiaPared5);
+		modelColliderIglesiaPared5 = glm::scale(modelColliderIglesiaPared5, glm::vec3(0.8));
+		modelColliderIglesiaPared5 = glm::translate(modelMatrixIglesiaPared5Body, iglesiaPared5.getObb().c);
+		colliderIglesiaPared5.c = modelColliderIglesiaPared5[3];
+		colliderIglesiaPared5.e = iglesiaPared5.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared5", colliderIglesiaPared5, modelColliderIglesiaPared5);
+		// Pared 6
+		glm::mat4 modelColliderIglesiaPared6 = glm::mat4(modelMatrixIglesiaPared6);
+		modelColliderIglesiaPared6 = glm::rotate(modelColliderIglesiaPared6, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared6;
+		colliderIglesiaPared6.u = glm::quat_cast(modelColliderIglesiaPared6);
+		modelColliderIglesiaPared6 = glm::scale(modelColliderIglesiaPared6, glm::vec3(0.8));
+		modelColliderIglesiaPared6 = glm::translate(modelMatrixIglesiaPared6Body, iglesiaPared6.getObb().c);
+		colliderIglesiaPared6.c = modelColliderIglesiaPared6[3];
+		colliderIglesiaPared6.e = iglesiaPared6.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared6", colliderIglesiaPared6, modelColliderIglesiaPared6);
+		// Pared 7
+		glm::mat4 modelColliderIglesiaPared7 = glm::mat4(modelMatrixIglesiaPared7);
+		modelColliderIglesiaPared7 = glm::rotate(modelColliderIglesiaPared7, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared7;
+		colliderIglesiaPared7.u = glm::quat_cast(modelColliderIglesiaPared7);
+		modelColliderIglesiaPared7 = glm::scale(modelColliderIglesiaPared7, glm::vec3(0.8));
+		modelColliderIglesiaPared7 = glm::translate(modelMatrixIglesiaPared7Body, iglesiaPared7.getObb().c);
+		colliderIglesiaPared7.c = modelColliderIglesiaPared7[3];
+		colliderIglesiaPared7.e = iglesiaPared7.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared7", colliderIglesiaPared7, modelColliderIglesiaPared7);
+		// Pared 8
+		glm::mat4 modelColliderIglesiaPared8 = glm::mat4(modelMatrixIglesiaPared8);
+		modelColliderIglesiaPared8 = glm::rotate(modelColliderIglesiaPared8, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared8;
+		colliderIglesiaPared8.u = glm::quat_cast(modelColliderIglesiaPared8);
+		modelColliderIglesiaPared8 = glm::scale(modelColliderIglesiaPared8, glm::vec3(0.8));
+		modelColliderIglesiaPared8 = glm::translate(modelMatrixIglesiaPared8Body, iglesiaPared8.getObb().c);
+		colliderIglesiaPared8.c = modelColliderIglesiaPared8[3];
+		colliderIglesiaPared8.e = iglesiaPared8.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared8", colliderIglesiaPared8, modelColliderIglesiaPared8);
+		// Pared 9
+		glm::mat4 modelColliderIglesiaPared9 = glm::mat4(modelMatrixIglesiaPared9);
+		modelColliderIglesiaPared9 = glm::rotate(modelColliderIglesiaPared9, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared9;
+		colliderIglesiaPared9.u = glm::quat_cast(modelColliderIglesiaPared9);
+		modelColliderIglesiaPared9 = glm::scale(modelColliderIglesiaPared9, glm::vec3(0.8));
+		modelColliderIglesiaPared9 = glm::translate(modelMatrixIglesiaPared9Body, iglesiaPared9.getObb().c);
+		colliderIglesiaPared9.c = modelColliderIglesiaPared9[3];
+		colliderIglesiaPared9.e = iglesiaPared9.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared9", colliderIglesiaPared9, modelColliderIglesiaPared9);
+		// Pared 10
+		glm::mat4 modelColliderIglesiaPared10 = glm::mat4(modelMatrixIglesiaPared10);
+		modelColliderIglesiaPared10 = glm::rotate(modelColliderIglesiaPared10, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared10;
+		colliderIglesiaPared10.u = glm::quat_cast(modelColliderIglesiaPared10);
+		modelColliderIglesiaPared10 = glm::scale(modelColliderIglesiaPared10, glm::vec3(0.8));
+		modelColliderIglesiaPared10 = glm::translate(modelMatrixIglesiaPared10Body, iglesiaPared10.getObb().c);
+		colliderIglesiaPared10.c = modelColliderIglesiaPared10[3];
+		colliderIglesiaPared10.e = iglesiaPared10.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared10", colliderIglesiaPared10, modelColliderIglesiaPared10);
+		// Pared 11
+		glm::mat4 modelColliderIglesiaPared11 = glm::mat4(modelMatrixIglesiaPared11);
+		modelColliderIglesiaPared11 = glm::rotate(modelColliderIglesiaPared11, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared11;
+		colliderIglesiaPared11.u = glm::quat_cast(modelColliderIglesiaPared11);
+		modelColliderIglesiaPared11 = glm::scale(modelColliderIglesiaPared11, glm::vec3(0.8));
+		modelColliderIglesiaPared11 = glm::translate(modelMatrixIglesiaPared11Body, iglesiaPared11.getObb().c);
+		colliderIglesiaPared11.c = modelColliderIglesiaPared11[3];
+		colliderIglesiaPared11.e = iglesiaPared11.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared11", colliderIglesiaPared11, modelColliderIglesiaPared11);
+		// Pared 12
+		glm::mat4 modelColliderIglesiaPared12 = glm::mat4(modelMatrixIglesiaPared12);
+		modelColliderIglesiaPared12 = glm::rotate(modelColliderIglesiaPared12, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		AbstractModel::OBB colliderIglesiaPared12;
+		colliderIglesiaPared12.u = glm::quat_cast(modelColliderIglesiaPared12);
+		modelColliderIglesiaPared12 = glm::scale(modelColliderIglesiaPared12, glm::vec3(0.8));
+		modelColliderIglesiaPared12 = glm::translate(modelMatrixIglesiaPared12Body, iglesiaPared12.getObb().c);
+		colliderIglesiaPared12.c = modelColliderIglesiaPared12[3];
+		colliderIglesiaPared12.e = iglesiaPared12.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "iglesiaPared12", colliderIglesiaPared12, modelColliderIglesiaPared12);
+		// Torre
+		// Torre
+		for(int i = 0; i < torrePos.size(); i++) {
+
+			glm::vec3 pos = torrePos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixTorre = glm::mat4(1.0f);
+			modelMatrixTorre = glm::translate(modelMatrixTorre, pos);
+			modelMatrixTorre = glm::rotate(modelMatrixTorre, glm::radians(torrePos[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixTorreBody = glm::mat4(modelMatrixTorre);
+			modelMatrixTorreBody = glm::scale(modelMatrixTorreBody, glm::vec3(0.8));
+
+			glm::mat4 modelColliderTorre = glm::mat4(modelMatrixTorre);
+			AbstractModel::OBB colliderTorre;
+			colliderTorre.u = glm::quat_cast(modelColliderTorre);
+			modelColliderTorre = glm::scale(modelColliderTorre, glm::vec3(0.8));
+			modelColliderTorre = glm::translate(modelMatrixTorreBody, torre.getObb().c);
+			colliderTorre.c = modelColliderTorre[3];
+			colliderTorre.e = torre.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"torre_" + std::to_string(i),
+				colliderTorre,
+				modelColliderTorre);
+		}
+		//Viga
+		glm::mat4 modelColliderTorreViga = glm::mat4(modelMatrixTorreViga);
+		AbstractModel::OBB colliderTorreViga;
+		colliderTorreViga.u = glm::quat_cast(modelColliderTorreViga);
+		modelColliderTorreViga = glm::scale(modelColliderTorreViga, glm::vec3(0.8));
+		modelColliderTorreViga = glm::translate(modelMatrixTorreVigaBody, torreViga.getObb().c);
+		colliderTorreViga.c = modelColliderTorreViga[3];
+		colliderTorreViga.e = torreViga.getObb().e * glm::vec3(0.8);
+		addOrUpdateColliders(collidersOBB, "torreViga", colliderTorreViga, modelColliderTorreViga);
+		// Torre Top
+		for(int i = 0; i < torreTopPos.size(); i++) {
+
+			glm::vec3 pos = torreTopPos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixTorreTop = glm::mat4(1.0f);
+			modelMatrixTorreTop = glm::translate(modelMatrixTorreTop, pos);
+			modelMatrixTorreTop = glm::rotate(modelMatrixTorreTop, glm::radians(torreTopPos[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixTorreTopBody = glm::mat4(modelMatrixTorreTop);
+			modelMatrixTorreTopBody = glm::scale(modelMatrixTorreTopBody, glm::vec3(0.8));
+
+			glm::mat4 modelcolliderTorreTop = glm::mat4(modelMatrixTorreTop);
+			AbstractModel::OBB colliderTorreTop;
+			colliderTorreTop.u = glm::quat_cast(modelcolliderTorreTop);
+			modelcolliderTorreTop = glm::scale(modelcolliderTorreTop, glm::vec3(0.8));
+			modelcolliderTorreTop = glm::translate(modelMatrixTorreTopBody, torreTop.getObb().c);
+			colliderTorreTop.c = modelcolliderTorreTop[3];
+			colliderTorreTop.e = torreTop.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"torreTop_" + std::to_string(i),
+				colliderTorreTop,
+				modelcolliderTorreTop);
+		}
+		// Bordes
+		for(int i = 0; i < bordePos.size(); i++) {
+
+			glm::vec3 pos = bordePos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixTorreBorde = glm::mat4(1.0f);
+			modelMatrixTorreBorde = glm::translate(modelMatrixTorreBorde, pos);
+			modelMatrixTorreBorde = glm::rotate(modelMatrixTorreBorde, glm::radians(bordePos[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixTorreBordeBody = glm::mat4(modelMatrixTorreBorde);
+			modelMatrixTorreBordeBody = glm::scale(modelMatrixTorreBordeBody, glm::vec3(0.8));
+
+			glm::mat4 modelColliderTorreBorde = glm::mat4(modelMatrixTorreBorde);
+			AbstractModel::OBB colliderTorreBorde;
+			colliderTorreBorde.u = glm::quat_cast(modelColliderTorreBorde);
+			modelColliderTorreBorde = glm::scale(modelColliderTorreBorde, glm::vec3(0.8));
+			modelColliderTorreBorde = glm::translate(modelMatrixTorreBordeBody, torreBorde.getObb().c);
+			colliderTorreBorde.c = modelColliderTorreBorde[3];
+			colliderTorreBorde.e = torreBorde.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"torreBorde_" + std::to_string(i),
+				colliderTorreBorde,
+				modelColliderTorreBorde);
+		}
+		// Plataformas 1
+		for(int i = 0; i < plat1Pos.size(); i++) {
+
+			glm::vec3 pos = plat1Pos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixTorrePlataforma = glm::mat4(1.0f);
+			modelMatrixTorrePlataforma = glm::translate(modelMatrixTorrePlataforma, pos);
+			modelMatrixTorrePlataforma = glm::rotate(modelMatrixTorrePlataforma, glm::radians(plat1Pos[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixTorrePlataformaBody = glm::mat4(modelMatrixTorrePlataforma);
+			modelMatrixTorrePlataformaBody = glm::scale(modelMatrixTorrePlataformaBody, glm::vec3(0.8));
+
+			glm::mat4 modelColliderTorrePlataforma = glm::mat4(modelMatrixTorrePlataforma);
+			AbstractModel::OBB colliderTorrePlataforma;
+			colliderTorrePlataforma.u = glm::quat_cast(modelColliderTorrePlataforma);
+			modelColliderTorrePlataforma = glm::scale(modelColliderTorrePlataforma, glm::vec3(0.8));
+			modelColliderTorrePlataforma = glm::translate(modelMatrixTorrePlataformaBody, torrePlataforma.getObb().c);
+			colliderTorrePlataforma.c = modelColliderTorrePlataforma[3];
+			colliderTorrePlataforma.e = torrePlataforma.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"torrePlataforma1_" + std::to_string(i),
+				colliderTorrePlataforma,
+				modelColliderTorrePlataforma);
+		}
+		// Plataformas 2
+		for(int i = 0; i < plat2Pos.size(); i++) {
+
+			glm::vec3 pos = plat2Pos[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixTorrePlataforma = glm::mat4(1.0f);
+			modelMatrixTorrePlataforma = glm::translate(modelMatrixTorrePlataforma, pos);
+			modelMatrixTorrePlataforma = glm::rotate(modelMatrixTorrePlataforma, glm::radians(plat2Pos[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixTorrePlataformaBody = glm::mat4(modelMatrixTorrePlataforma);
+			modelMatrixTorrePlataformaBody = glm::scale(modelMatrixTorrePlataformaBody, glm::vec3(0.8));
+
+			glm::mat4 modelColliderTorrePlataforma2 = glm::mat4(modelMatrixTorrePlataforma);
+			AbstractModel::OBB colliderTorrePlataforma2;
+			colliderTorrePlataforma2.u = glm::quat_cast(modelColliderTorrePlataforma2);
+			modelColliderTorrePlataforma2 = glm::scale(modelColliderTorrePlataforma2, glm::vec3(0.8));
+			modelColliderTorrePlataforma2 = glm::translate(modelMatrixTorrePlataformaBody, torrePlataforma.getObb().c);
+			colliderTorrePlataforma2.c = modelColliderTorrePlataforma2[3];
+			colliderTorrePlataforma2.e = torrePlataforma.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"torrePlataforma2_" + std::to_string(i),
+				colliderTorrePlataforma2,
+				modelColliderTorrePlataforma2);
+		}
 		// Objetos
 		// Collider Cajas
 		for(int i = 0; i < boxPositions.size(); i++) {
@@ -2772,15 +3729,21 @@ void applicationLoop() {
 				colliderCaja,
 				modelColliderCaja);
 		}
-		// Collider gemas
-		for(int i = 0; i < gemPositions.size(); i++) {
+		// Collider gemas (solo las no recolectadas)
+		for(int i = 0; i < (int)gemPositions.size(); i++) {
+			if(gemCollected[i]) {
+				// Eliminar collider si ya fue recolectada
+				collidersOBB.erase("gem_" + std::to_string(i));
+				continue;
+			}
 
 			glm::vec3 pos = gemPositions[i].first;
-			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y + 0.2f * std::sin(currTime * 2.5f + i * 1.0f);
+			float rot = gemPositions[i].second + std::fmod(currTime * 60.0f, 360.0f);
 
 			glm::mat4 modelMatrixGem = glm::mat4(1.0f);
 			modelMatrixGem = glm::translate(modelMatrixGem, pos);
-			modelMatrixGem = glm::rotate(modelMatrixGem, glm::radians(gemPositions[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+			modelMatrixGem = glm::rotate(modelMatrixGem, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
 
 			glm::mat4 modelMatrixGemBody = glm::mat4(modelMatrixGem);
 			modelMatrixGemBody = glm::scale(modelMatrixGemBody, glm::vec3(0.8));
@@ -2800,30 +3763,76 @@ void applicationLoop() {
 				modelColliderGem);
 		}
 		// Collider de llave
-		glm::mat4 modelColliderCasa1Key = glm::mat4(modelMatrixCasa1Key);
-		AbstractModel::OBB colliderCasa1Key;
-		colliderCasa1Key.u = glm::quat_cast(modelColliderCasa1Key);
-		modelColliderCasa1Key = glm::scale(modelColliderCasa1Key, glm::vec3(0.8));
-		modelColliderCasa1Key = glm::translate(modelMatrixCasa1KeyBody, key.getObb().c);
-		colliderCasa1Key.c = modelColliderCasa1Key[3];
-		colliderCasa1Key.e = key.getObb().e * glm::vec3(0.8);
-		addOrUpdateColliders(collidersOBB, "llave", colliderCasa1Key, modelColliderCasa1Key);
+		// Collider de la llave (solo si no fue recolectada)
+		if(keyCollected) {
+			collidersOBB.erase("llave");
+		} else {
+			glm::vec3 keyPos = keyPosition;
+			keyPos.y = terrain.getHeightTerrain(keyPos.x, keyPos.z) + keyPos.y + 0.2f * std::sin(currTime * 2.5f);
+			glm::mat4 modelColliderCasa1Key = glm::mat4(1.0f);
+			modelColliderCasa1Key = glm::translate(modelColliderCasa1Key, keyPos);
+			modelColliderCasa1Key = glm::rotate(modelColliderCasa1Key, glm::radians((float)std::fmod(currTime * 60.0, 360.0)), glm::vec3(0.0f, 1.0f, 0.0f));
+			AbstractModel::OBB colliderCasa1Key;
+			colliderCasa1Key.u = glm::quat_cast(modelColliderCasa1Key);
+			glm::mat4 modelColliderCasa1KeyScaled = glm::scale(modelColliderCasa1Key, glm::vec3(0.8));
+			glm::mat4 modelColliderCasa1KeyCenter = glm::translate(modelColliderCasa1KeyScaled, key.getObb().c);
+			colliderCasa1Key.c = modelColliderCasa1KeyCenter[3];
+			colliderCasa1Key.e = key.getObb().e * glm::vec3(0.8);
+			addOrUpdateColliders(collidersOBB, "llave", colliderCasa1Key, modelColliderCasa1KeyCenter);
+		}
+		// Collider Abetos
+		for(int i = 0; i < treesPositions.size(); i++) {
+
+			glm::vec3 pos = treesPositions[i].first;
+			pos.y = terrain.getHeightTerrain(pos.x, pos.z) + pos.y;
+
+			glm::mat4 modelMatrixSpruceLog = glm::mat4(1.0f);
+			modelMatrixSpruceLog = glm::translate(modelMatrixSpruceLog, pos);
+			modelMatrixSpruceLog = glm::rotate(modelMatrixSpruceLog, glm::radians(treesPositions[i].second), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			glm::mat4 modelMatrixSpruceLogBody = glm::mat4(modelMatrixSpruceLog);
+			modelMatrixSpruceLogBody = glm::scale(modelMatrixSpruceLogBody, glm::vec3(0.8));
+
+			glm::mat4 modelColliderSpruceLog = glm::mat4(modelMatrixSpruceLog);
+			AbstractModel::OBB colliderSpruceLog;
+			colliderSpruceLog.u = glm::quat_cast(modelColliderSpruceLog);
+			modelColliderSpruceLog = glm::scale(modelColliderSpruceLog, glm::vec3(0.8));
+			modelColliderSpruceLog = glm::translate(modelMatrixSpruceLogBody, spruceLog.getObb().c);
+			colliderSpruceLog.c = modelColliderSpruceLog[3];
+			colliderSpruceLog.e = spruceLog.getObb().e * glm::vec3(0.8);
+
+			addOrUpdateColliders(
+				collidersOBB,
+				"spruceLog_" + std::to_string(i),
+				colliderSpruceLog,
+				modelColliderSpruceLog);
+		}
+
+		// Collider final esférico si se juntaron todas las gemas
+		if(gemsCount >= 0) {
+			AbstractModel::SBB finalCollider;
+			finalCollider.c = glm::vec3(0.0f, 2.0f, 0.0f);	// 0, 36, -80
+			finalCollider.ratio = 5.0f; // Radio de 2 unidades
+			addOrUpdateColliders(collidersSBB, "final_collider", finalCollider, glm::mat4(1.0f));
+		} else {
+			collidersSBB.erase("final_collider");
+		}
 
 		// Render de los colliders
 		for(auto it = collidersSBB.begin(); it != collidersSBB.end(); it++){
 			glm::mat4 matrixCollider = glm::translate(glm::mat4(1.0), std::get<0>(it->second).c);
 			matrixCollider = glm::scale(matrixCollider, glm::vec3(std::get<0>(it->second).ratio*2));
 			sphereCollider.setColor(glm::vec4(1, 1, 1, 1));
-			sphereCollider.enableWireMode();
-			sphereCollider.render(matrixCollider);
+			//sphereCollider.enableWireMode();
+			//sphereCollider.render(matrixCollider);
 		};
 		for(auto it = collidersOBB.begin(); it != collidersOBB.end(); it++){
 			glm::mat4 matrixCollider = glm::translate(glm::mat4(1.0), std::get<0>(it->second).c);
 			matrixCollider = matrixCollider * glm::mat4(std::get<0>(it->second).u);	// Rotación
 			matrixCollider = glm::scale(matrixCollider, std::get<0>(it->second).e * 2.0f);
 			boxCollider.setColor(glm::vec4(1));
-			boxCollider.enableWireMode();
-			boxCollider.render(matrixCollider);
+			//boxCollider.enableWireMode();
+			//boxCollider.render(matrixCollider);
 		};
 
 		// Pruebas de colisión OBB (plataformas y objetos)
@@ -2849,6 +3858,22 @@ void applicationLoop() {
 				for(auto jt = collidersOBB.begin(); jt != collidersOBB.end(); jt++){
 					if(jt->first == "cat") continue;
 					if(!testOBBOBB(catOBB, std::get<0>(jt->second))) continue;
+
+					// --- Recolección de gemas ---
+					if(jt->first.rfind("gem_", 0) == 0) {
+						int gemIdx = std::stoi(jt->first.substr(4));
+						if(gemIdx >= 0 && gemIdx < (int)gemCollected.size() && !gemCollected[gemIdx]) {
+							gemCollected[gemIdx] = true;
+							gemsCount++;
+						}
+						continue;  // Las gemas no bloquean el movimiento
+					}
+					// --- Recolección de llave ---
+					if(jt->first == "llave" && !keyCollected) {
+						keyCollected = true;
+						gem4Descending = true;	// Activar descenso de gema 4
+						continue;  // La llave no bloquea el movimiento
+					}
 
 					AbstractModel::OBB& otherOBB = std::get<0>(jt->second);
 
@@ -2888,6 +3913,34 @@ void applicationLoop() {
 				}
 			}
 		};
+
+		// Prueba de colisión con el collider final para terminar el juego
+		if(gemsCount >= 0) {
+
+			auto itCat = collidersOBB.find("cat");
+			auto itFinal = collidersSBB.find("final_collider");
+			if(itCat != collidersOBB.end() && itFinal != collidersSBB.end()) {
+				AbstractModel::OBB& catOBB = std::get<0>(itCat->second);
+				AbstractModel::SBB& finalColliderSBB = std::get<0>(itFinal->second);
+				if(testSphereOBox(finalColliderSBB, catOBB)) {
+					iniciaPartida = false;
+					textureActivaID = textureOutroID;
+				}
+			}
+		}
+
+		/************Render de imagen de frente**************/
+		shaderTexture.setMatrix4("projection", 1, false, glm::value_ptr(glm::mat4(1.0)));
+		shaderTexture.setMatrix4("view", 1, false, glm::value_ptr(glm::mat4(1.0)));
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureActivaID);
+		shaderTexture.setInt("outTexture", 0);
+		glEnable(GL_BLEND);
+		boxIntro.render();
+		glDisable(GL_BLEND);
+
+		std::string gemCounterText = std::to_string(gemsCount) + "/" + std::to_string((int)gemPositions.size());
+		modelText->render(gemCounterText, -0.97, 0.80, 40, 255, 255, 255);
 		
 		glfwSwapBuffers(window);
 	}
