@@ -1,7 +1,7 @@
 CGALib/CMakeFiles/CGALib.dir/src/FontTypeRendering.cpp.obj: \
- C:\CGA\CGA_Proyecto_Final\CGALib\src\FontTypeRendering.cpp \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/FontTypeRendering.h \
- C:/CGA/CGA_Proyecto_Final/external/glew/include/GL/glew.h \
+ C:\CGA\ProyectoFinal\CGALib\src\FontTypeRendering.cpp \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/FontTypeRendering.h \
+ C:/CGA/ProyectoFinal/external/glew/include/GL/glew.h \
  C:/msys64/ucrt64/include/inttypes.h C:/msys64/ucrt64/include/crtdefs.h \
  C:/msys64/ucrt64/include/corecrt.h C:/msys64/ucrt64/include/_mingw.h \
  C:/msys64/ucrt64/include/_mingw_mac.h \
@@ -146,24 +146,24 @@ CGALib/CMakeFiles/CGALib.dir/src/FontTypeRendering.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/istream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/ft2build.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftheader.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/freetype.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftconfig.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftoption.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/ftstdlib.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/ft2build.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/ftheader.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/freetype.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/ftconfig.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/ftoption.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/ftstdlib.h \
  C:/msys64/ucrt64/include/string.h \
  C:/msys64/ucrt64/include/sec_api/string_s.h \
  C:/msys64/ucrt64/include/setjmp.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
  C:/msys64/ucrt64/include/stdarg.h \
  C:/msys64/ucrt64/include/_mingw_stdarg.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/integer-types.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/public-macros.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/config/mac-support.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fttypes.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftsystem.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftimage.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrors.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/ftmoderr.h \
- C:/CGA/CGA_Proyecto_Final/external/Freetype/include/freetype/fterrdef.h
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/integer-types.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/public-macros.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/config/mac-support.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/fttypes.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/ftsystem.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/ftimage.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/fterrors.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/ftmoderr.h \
+ C:/CGA/ProyectoFinal/external/Freetype/include/freetype/fterrdef.h

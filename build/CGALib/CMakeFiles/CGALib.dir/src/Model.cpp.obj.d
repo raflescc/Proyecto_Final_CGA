@@ -1,7 +1,7 @@
 CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj: \
- C:\CGA\CGA_Proyecto_Final\CGALib\src\Model.cpp \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Model.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Mesh.h \
+ C:\CGA\ProyectoFinal\CGALib\src\Model.cpp \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Model.h \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Mesh.h \
  C:/msys64/ucrt64/include/c++/15.2.0/string \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -156,13 +156,13 @@ CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_vector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/vector.tcc \
- C:/CGA/CGA_Proyecto_Final/external/glew/include/GL/glew.h \
+ C:/CGA/ProyectoFinal/external/glew/include/GL/glew.h \
  C:/msys64/ucrt64/include/inttypes.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
  C:/msys64/ucrt64/include/stdint.h C:/msys64/ucrt64/include/GL/glu.h \
  C:/msys64/ucrt64/include/GL/gl.h \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/glm.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_fixes.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/glm.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/_fixes.hpp \
  C:/msys64/ucrt64/include/c++/15.2.0/cmath \
  C:/msys64/ucrt64/include/math.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/specfun.h \
@@ -179,159 +179,159 @@ CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/tr1/poly_hermite.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/tr1/riemann_zeta.tcc \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/setup.hpp \
  C:/msys64/ucrt64/include/c++/15.2.0/cassert \
  C:/msys64/ucrt64/include/assert.h \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/simd/platform.h \
+ C:/CGA/ProyectoFinal/external/glm/glm/simd/platform.h \
  C:/msys64/ucrt64/include/c++/15.2.0/cstdint \
  C:/msys64/ucrt64/include/c++/15.2.0/climits \
  C:/msys64/ucrt64/include/c++/15.2.0/cfloat \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/float.h \
  C:/msys64/ucrt64/include/float.h \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/fwd.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/qualifier.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/vec2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec2.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_vector_relational.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int2_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/scalar_int_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint2_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/scalar_uint_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/vec3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec3.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int3_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint3_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/vec4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec4.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int4_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint4_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat2x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x2.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/matrix.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat2x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x3.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat2x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat2x4.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat3x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x2.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat3x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x3.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat3x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat3x4.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double3x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float3x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat4x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x2.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat4x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x3.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x3.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x3_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/mat4x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_mat4x4.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double4x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x4.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float4x4_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_matrix.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/geometric.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_geometric.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/exponential.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_vec1.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_exponential.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/vector_relational.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_vector_relational.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/_vectorize.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/common.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_common.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/compute_common.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_double2x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x2.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_float2x2_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/trigonometric.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_trigonometric.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/packing.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_packing.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_half.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_half.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/integer.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/func_integer.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/matrix_transform.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_projection.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/constants.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/scalar_constants.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/scalar_constants.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/constants.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_projection.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_clip_space.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_clip_space.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_transform.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/matrix_transform.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/matrix_transform.inl \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/AbstractModel.h \
+ C:/CGA/ProyectoFinal/external/glm/glm/fwd.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/qualifier.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/setup.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/vec2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec2.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/compute_vector_relational.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int2_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/scalar_int_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/setup.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint2_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/scalar_uint_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/vec3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec3.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int3_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint3_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/vec4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec4.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int4_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint4_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat2x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x2.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/matrix.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat2x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x3.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat2x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat2x4.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat3x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x2.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat3x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x3.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat3x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat3x4.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double3x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float3x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat4x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x2.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat4x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x3.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x3.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x3_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/mat4x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_mat4x4.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double4x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x4.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float4x4_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_matrix.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/geometric.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_geometric.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/exponential.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_vec1.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_exponential.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/vector_relational.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_vector_relational.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/_vectorize.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/common.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_common.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/compute_common.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_double2x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x2.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_float2x2_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/trigonometric.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_trigonometric.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/packing.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_packing.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_half.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_half.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/integer.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/func_integer.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/matrix_transform.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_projection.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/constants.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/scalar_constants.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/scalar_constants.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/constants.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_projection.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_clip_space.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_clip_space.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_transform.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/matrix_transform.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/matrix_transform.inl \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/AbstractModel.h \
  C:/msys64/ucrt64/include/c++/15.2.0/memory \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_tempbuf.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_raw_storage_iter.h \
@@ -348,92 +348,92 @@ CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/backward/auto_ptr.h \
  C:/msys64/ucrt64/include/c++/15.2.0/pstl/glue_memory_defs.h \
  C:/msys64/ucrt64/include/c++/15.2.0/pstl/execution_defs.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Shader.h \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Shader.h \
  C:/msys64/ucrt64/include/c++/15.2.0/algorithm \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_algo.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/algorithmfwd.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_heap.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/uniform_int_dist.h \
  C:/msys64/ucrt64/include/c++/15.2.0/pstl/glue_algorithm_defs.h \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/quaternion.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_relational.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_relational.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_float.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_common.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_geometric.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_geometric.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_common.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_float.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_quat.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_relational.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_relational.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/type_quat.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_float_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_double.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_double_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_trigonometric.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_trigonometric.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_transform.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/quaternion_transform.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/quaternion.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/epsilon.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/detail/setup.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/epsilon.inl \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/type_ptr.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/vec1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_bool1_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_float1_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_double1_precision.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_int1_sized.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint1.hpp \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/ext/vector_uint1_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/quaternion.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_relational.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_relational.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_float.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_common.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_geometric.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_geometric.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_common.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_float.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_quat.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_relational.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_relational.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/type_quat.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_float_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_double.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_double_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_trigonometric.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_trigonometric.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_transform.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/quaternion_transform.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/quaternion.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/epsilon.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/detail/setup.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/epsilon.inl \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/type_ptr.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/vec1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_bool1_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_float1_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_double1_precision.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_int1_sized.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint1.hpp \
+ C:/CGA/ProyectoFinal/external/glm/glm/ext/vector_uint1_sized.hpp \
  C:/msys64/ucrt64/include/c++/15.2.0/cstring \
  C:/msys64/ucrt64/include/string.h \
  C:/msys64/ucrt64/include/sec_api/string_s.h \
- C:/CGA/CGA_Proyecto_Final/external/glm/glm/gtc/type_ptr.inl \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Bones.h \
+ C:/CGA/ProyectoFinal/external/glm/glm/gtc/type_ptr.inl \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Texture.h \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Bones.h \
  C:/msys64/ucrt64/include/c++/15.2.0/map \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/node_handle.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/stl_multimap.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/erase_if.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Importer.hpp \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/types.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/defs.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/config.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector2.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector3.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/color4.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/quaternion.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector2.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/vector3.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/color4.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix3x3.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/matrix4x4.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/MathFunctions.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/quaternion.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/scene.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/texture.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/pushpack1.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/Compiler/poppack1.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/mesh.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/aabb.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/light.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/camera.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/material.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/material.inl \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/anim.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/metadata.h \
- C:/CGA/CGA_Proyecto_Final/external/assimp/include/assimp/postprocess.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/TimeManager.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/Importer.hpp \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/types.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/defs.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/config.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/vector2.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/vector3.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/color4.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/matrix3x3.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/matrix4x4.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/quaternion.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/vector2.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/vector3.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/color4.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/matrix3x3.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/matrix4x4.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/MathFunctions.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/quaternion.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/scene.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/texture.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/Compiler/pushpack1.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/Compiler/poppack1.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/mesh.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/aabb.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/light.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/camera.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/material.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/material.inl \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/anim.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/metadata.h \
+ C:/CGA/ProyectoFinal/external/assimp/include/assimp/postprocess.h \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/TimeManager.h \
  C:/msys64/ucrt64/include/c++/15.2.0/chrono \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/chrono.h \
  C:/msys64/ucrt64/include/c++/15.2.0/ratio \
@@ -442,4 +442,4 @@ CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/thread \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/std_thread.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/this_thread_sleep.h \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/mathUtil.h
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/mathUtil.h

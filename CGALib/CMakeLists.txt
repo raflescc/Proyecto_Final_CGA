@@ -9,22 +9,22 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
      include_directories(
           CGALib 
           "./include/" 
-          "../external/assimp/include"
-          "../external/glfw/include"
-          "../external/glm"
-          "../external/glew/include"
-          "../external/FreeImage/include"
-          "../external/OpenAL/include"
-          "../external/Freetype/include"
-          "../external/freealut/include"
+          "${CMAKE_SOURCE_DIR}/external/assimp/include"
+          "${CMAKE_SOURCE_DIR}/external/glfw/include"
+          "${CMAKE_SOURCE_DIR}/external/glm"
+          "${CMAKE_SOURCE_DIR}/external/glew/include"
+          "${CMAKE_SOURCE_DIR}/external/FreeImage/include"
+          "${CMAKE_SOURCE_DIR}/external/OpenAL/include"
+          "${CMAKE_SOURCE_DIR}/external/Freetype/include"
+          "${CMAKE_SOURCE_DIR}/external/freealut/include"
 
      )
      link_directories(
-          "../external/assimp/lib"
-          "../external/glfw/lib"
-          "../external/Freetype/lib"
-          "../external/FreeImage/lib"
-          "../external/glew/lib"
+          "${CMAKE_SOURCE_DIR}/external/assimp/lib"
+          "${CMAKE_SOURCE_DIR}/external/glfw/lib"
+          "${CMAKE_SOURCE_DIR}/external/Freetype/lib"
+          "${CMAKE_SOURCE_DIR}/external/FreeImage/lib"
+          "${CMAKE_SOURCE_DIR}/external/glew/lib"
      )
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
      include_directories(

@@ -1,0 +1,102 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : [],
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-Debug-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "CGALib",
+					"jsonFile" : "directory-CGALib-Debug-ec21a28056f296431e3e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "CGALib",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "ProyectoFinal",
+					"jsonFile" : "directory-ProyectoFinal-Debug-56df0edc8a26b709227d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "ProyectoFinal",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "ProyectoFinal",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "CGALib::@1a9f62cd0483ef4537e7",
+					"jsonFile" : "target-CGALib-Debug-e80488b0a1299cf5a82a.json",
+					"name" : "CGALib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ProyectoFinal::@193dfad540aa8819f23b",
+					"jsonFile" : "target-ProyectoFinal-Debug-26c20bc8348561a04ecd.json",
+					"name" : "ProyectoFinal",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/CGA/ProyectoFinal/build",
+		"source" : "C:/CGA/ProyectoFinal"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	}
+}

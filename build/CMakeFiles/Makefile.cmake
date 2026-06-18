@@ -7,9 +7,9 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "C:/CGA/CGA_Proyecto_Final/00-Introduccion/CMakeLists.txt"
-  "C:/CGA/CGA_Proyecto_Final/CGALib/CMakeLists.txt"
-  "C:/CGA/CGA_Proyecto_Final/CMakeLists.txt"
+  "C:/CGA/ProyectoFinal/CGALib/CMakeLists.txt"
+  "C:/CGA/ProyectoFinal/CMakeLists.txt"
+  "C:/CGA/ProyectoFinal/ProyectoFinal/CMakeLists.txt"
   "CMakeFiles/4.2.3/CMakeCCompiler.cmake"
   "CMakeFiles/4.2.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.2.3/CMakeRCCompiler.cmake"
@@ -58,11 +58,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "CGALib/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "00-Introduccion/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "ProyectoFinal/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CGALib/CMakeFiles/CGALib.dir/DependInfo.cmake"
-  "00-Introduccion/CMakeFiles/00-Introduccion.dir/DependInfo.cmake"
+  "ProyectoFinal/CMakeFiles/ProyectoFinal.dir/DependInfo.cmake"
   )

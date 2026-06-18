@@ -1,6 +1,6 @@
 CGALib/CMakeFiles/CGALib.dir/src/TimeManager.cpp.obj: \
- C:\CGA\CGA_Proyecto_Final\CGALib\src\TimeManager.cpp \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/TimeManager.h \
+ C:\CGA\ProyectoFinal\CGALib\src\TimeManager.cpp \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/TimeManager.h \
  C:/msys64/ucrt64/include/c++/15.2.0/chrono \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/chrono.h \
  C:/msys64/ucrt64/include/c++/15.2.0/ratio \

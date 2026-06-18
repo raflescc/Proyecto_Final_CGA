@@ -1,92 +1,92 @@
 [
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Bones.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Bones.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Bones.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Bones.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Bones.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Bones.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Bones.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Box.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Box.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Box.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Box.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Box.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Box.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Box.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Cylinder.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Cylinder.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Cylinder.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Cylinder.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Cylinder.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Cylinder.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Cylinder.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\FirstPersonCamera.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\FirstPersonCamera.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/FirstPersonCamera.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\FirstPersonCamera.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\FirstPersonCamera.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/FirstPersonCamera.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/FirstPersonCamera.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\FontTypeRendering.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\FontTypeRendering.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/FontTypeRendering.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\FontTypeRendering.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\FontTypeRendering.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/FontTypeRendering.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/FontTypeRendering.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Mesh.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Mesh.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Mesh.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Mesh.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Mesh.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Mesh.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Mesh.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Model.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Model.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Model.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Model.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Model.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Model.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Model.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Shader.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Shader.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Shader.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Shader.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Shader.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Shader.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Shader.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\ShadowBox.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\ShadowBox.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/ShadowBox.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\ShadowBox.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\ShadowBox.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/ShadowBox.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/ShadowBox.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Sphere.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Sphere.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Sphere.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Sphere.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Sphere.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Sphere.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Sphere.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Terrain.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Terrain.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Terrain.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Terrain.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Terrain.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Terrain.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Terrain.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Texture.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\Texture.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/Texture.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\Texture.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\Texture.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/Texture.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/Texture.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\ThirdPersonCamera.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\ThirdPersonCamera.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/ThirdPersonCamera.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\ThirdPersonCamera.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\ThirdPersonCamera.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/ThirdPersonCamera.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/ThirdPersonCamera.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/CGALib",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\TimeManager.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\CGALib\\src\\TimeManager.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/CGALib/src/TimeManager.cpp",
+  "directory": "C:/CGA/ProyectoFinal/build/CGALib",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL -DCGALib_EXPORTS @CMakeFiles/CGALib.dir/includes_CXX.rsp -g -o CMakeFiles\\CGALib.dir\\src\\TimeManager.cpp.obj -c C:\\CGA\\ProyectoFinal\\CGALib\\src\\TimeManager.cpp",
+  "file": "C:/CGA/ProyectoFinal/CGALib/src/TimeManager.cpp",
   "output": "CGALib/CMakeFiles/CGALib.dir/src/TimeManager.cpp.obj"
 },
 {
-  "directory": "C:/CGA/CGA_Proyecto_Final/build/00-Introduccion",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL @CMakeFiles/00-Introduccion.dir/includes_CXX.rsp -g -o CMakeFiles\\00-Introduccion.dir\\src\\main.cpp.obj -c C:\\CGA\\CGA_Proyecto_Final\\00-Introduccion\\src\\main.cpp",
-  "file": "C:/CGA/CGA_Proyecto_Final/00-Introduccion/src/main.cpp",
-  "output": "00-Introduccion/CMakeFiles/00-Introduccion.dir/src/main.cpp.obj"
+  "directory": "C:/CGA/ProyectoFinal/build/ProyectoFinal",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DBUILDING_DLL @CMakeFiles/ProyectoFinal.dir/includes_CXX.rsp -g -o CMakeFiles\\ProyectoFinal.dir\\src\\main.cpp.obj -c C:\\CGA\\ProyectoFinal\\ProyectoFinal\\src\\main.cpp",
+  "file": "C:/CGA/ProyectoFinal/ProyectoFinal/src/main.cpp",
+  "output": "ProyectoFinal/CMakeFiles/ProyectoFinal.dir/src/main.cpp.obj"
 }
 ]

@@ -1,4 +1,4 @@
-# Install script for directory: C:/CGA/CGA_Proyecto_Final
+# Install script for directory: C:/CGA/ProyectoFinal
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,15 +39,15 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/CGA/CGA_Proyecto_Final/build/CGALib/cmake_install.cmake")
-  include("C:/CGA/CGA_Proyecto_Final/build/00-Introduccion/cmake_install.cmake")
+  include("C:/CGA/ProyectoFinal/build/CGALib/cmake_install.cmake")
+  include("C:/CGA/ProyectoFinal/build/ProyectoFinal/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/CGA/CGA_Proyecto_Final/build/install_local_manifest.txt"
+  file(WRITE "C:/CGA/ProyectoFinal/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -63,6 +63,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/CGA/CGA_Proyecto_Final/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/CGA/ProyectoFinal/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

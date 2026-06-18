@@ -1,9 +1,9 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/CGA/CGA_Proyecto_Final/build/cmake_install.cmake",
-		"C:/CGA/CGA_Proyecto_Final/build/CGALib/cmake_install.cmake",
-		"C:/CGA/CGA_Proyecto_Final/build/00-Introduccion/cmake_install.cmake"
+		"C:/CGA/ProyectoFinal/build/cmake_install.cmake",
+		"C:/CGA/ProyectoFinal/build/CGALib/cmake_install.cmake",
+		"C:/CGA/ProyectoFinal/build/ProyectoFinal/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

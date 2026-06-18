@@ -1,6 +1,6 @@
 CGALib/CMakeFiles/CGALib.dir/src/Texture.cpp.obj: \
- C:\CGA\CGA_Proyecto_Final\CGALib\src\Texture.cpp \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/Texture.h \
+ C:\CGA\ProyectoFinal\CGALib\src\Texture.cpp \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/Texture.h \
  C:/msys64/ucrt64/include/c++/15.2.0/string \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -98,7 +98,7 @@ CGALib/CMakeFiles/CGALib.dir/src/Texture.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/uses_allocator.h \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/uses_allocator_args.h \
  C:/msys64/ucrt64/include/c++/15.2.0/tuple \
- C:/CGA/CGA_Proyecto_Final/external/glew/include/GL/glew.h \
+ C:/CGA/ProyectoFinal/external/glew/include/GL/glew.h \
  C:/msys64/ucrt64/include/inttypes.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
  C:/msys64/ucrt64/include/stdint.h C:/msys64/ucrt64/include/GL/glu.h \
@@ -148,7 +148,7 @@ CGALib/CMakeFiles/CGALib.dir/src/Texture.cpp.obj: \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/15.2.0/istream \
  C:/msys64/ucrt64/include/c++/15.2.0/bits/istream.tcc \
- C:/CGA/CGA_Proyecto_Final/CGALib/include/Headers/stb_image.h \
+ C:/CGA/ProyectoFinal/CGALib/include/Headers/stb_image.h \
  C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdarg.h \
  C:/msys64/ucrt64/include/stdarg.h \
  C:/msys64/ucrt64/include/_mingw_stdarg.h \

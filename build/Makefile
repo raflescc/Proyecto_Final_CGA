@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\CGA\CGA_Proyecto_Final
+CMAKE_SOURCE_DIR = C:\CGA\ProyectoFinal
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\CGA\CGA_Proyecto_Final\build
+CMAKE_BINARY_DIR = C:\CGA\ProyectoFinal\build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\CGA\CGA_Proyecto_Final\build\CMakeFiles C:\CGA\CGA_Proyecto_Final\build\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\CGA\ProyectoFinal\build\CMakeFiles C:\CGA\ProyectoFinal\build\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\CGA\CGA_Proyecto_Final\build\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\CGA\ProyectoFinal\build\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,17 +129,17 @@ CGALib/fast:
 .PHONY : CGALib/fast
 
 #=============================================================================
-# Target rules for targets named 00-Introduccion
+# Target rules for targets named ProyectoFinal
 
 # Build rule for target.
-00-Introduccion: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 00-Introduccion
-.PHONY : 00-Introduccion
+ProyectoFinal: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 ProyectoFinal
+.PHONY : ProyectoFinal
 
 # fast build rule for target.
-00-Introduccion/fast:
-	$(MAKE) $(MAKESILENT) -f 00-Introduccion\CMakeFiles\00-Introduccion.dir\build.make 00-Introduccion/CMakeFiles/00-Introduccion.dir/build
-.PHONY : 00-Introduccion/fast
+ProyectoFinal/fast:
+	$(MAKE) $(MAKESILENT) -f ProyectoFinal\CMakeFiles\ProyectoFinal.dir\build.make ProyectoFinal/CMakeFiles/ProyectoFinal.dir/build
+.PHONY : ProyectoFinal/fast
 
 # Help Target
 help:
@@ -149,8 +149,8 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... 00-Introduccion
 	@echo ... CGALib
+	@echo ... ProyectoFinal
 .PHONY : help
 
 
