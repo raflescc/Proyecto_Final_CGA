@@ -65,7 +65,6 @@ Sphere skyboxSphere(20, 20);
 
 Box boxCollider;
 Sphere sphereCollider(10, 10);
-//Cylinder cylinderCollider(10, 10, 1, 1, 1);	// rebanadas, tapas, radio1, radio2, altura
 Box boxIntro;
 
 // Models complex instances
@@ -1716,18 +1715,6 @@ void applicationLoop() {
 		shaderTerrain.setVectorFloat3("directionalLight.light.diffuse", glm::value_ptr(glm::vec3(0.3, 0.3, 0.3)));
 		shaderTerrain.setVectorFloat3("directionalLight.light.specular", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
 		shaderTerrain.setVectorFloat3("directionalLight.direction", glm::value_ptr(glm::vec3(-0.5, -0.8, 0.5)));
-
-		/*******************************************
-		 * Propiedades SpotLights
-		 *******************************************/
-		//shaderMulLighting.setInt("spotLightCount", 0);
-		//shaderTerrain.setInt("spotLightCount", 0);
-
-		/*******************************************
-		 * Propiedades PointLights
-		 *******************************************/
-		//shaderMulLighting.setInt("pointLightCount", 0);
-		//shaderTerrain.setInt("pointLightCount", 0);
 
 		/*******************************************
 		 * Terreno
